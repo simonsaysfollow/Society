@@ -97,9 +97,12 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="More"/>
+                                <connections>
+                                    <action selector="addMoreTopics:" destination="Gaa-Gn-Ivm" eventType="touchUpInside" id="fq6-Lp-UYy"/>
+                                </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.25176583899999999" green="0.39075877570000001" blue="0.54124645360000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Csf-UC-KvY" firstAttribute="trailing" secondItem="1h6-Nk-tLU" secondAttribute="trailing" id="4go-l6-NMH"/>
                             <constraint firstItem="Csf-UC-KvY" firstAttribute="leading" secondItem="Gce-Wv-4Jl" secondAttribute="leading" id="4sa-Wy-mmc"/>
@@ -121,7 +124,9 @@
                         <barButtonItem key="rightBarButtonItem" image="peaceOut" id="dp7-7d-sv1"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="bottomCollectionView" destination="uI0-p4-ilg" id="bj9-pp-GgY"/>
                         <outlet property="collectionView" destination="1h6-Nk-tLU" id="d1O-yA-Imf"/>
+                        <outlet property="moreTopics" destination="Csf-UC-KvY" id="yEc-7c-z95"/>
                         <outlet property="rightBarItem" destination="dp7-7d-sv1" id="5SZ-hN-syO"/>
                     </connections>
                 </viewController>
