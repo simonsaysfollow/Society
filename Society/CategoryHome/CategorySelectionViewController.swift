@@ -45,13 +45,13 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
              moreTopics.isHidden = true
 //             bottomCollectionView.constant  = -86
         }
-       
+
         if (scrollView.contentOffset.y > 0 && scrollView.contentOffset.y+68 < (scrollView.contentSize.height - scrollView.frame.size.height)) {
             //not top and not bottom
             moreTopics.isHidden = true
-            
+
             bottomCollectionView.constant  = -86
-            
+
         }
     }
     

@@ -139,6 +139,7 @@
                                             <outlet property="minutesPosted" destination="cC7-uf-lqb" id="4Pi-3j-EZc"/>
                                             <outlet property="postSettingsBtn" destination="4V7-6M-O9d" id="lAT-Ua-Col"/>
                                             <outlet property="postUsernameLabel" destination="A8i-RO-Zcd" id="dP4-QY-mYi"/>
+                                            <outlet property="replyToPost" destination="xKB-cr-i3X" id="b8b-dV-r9P"/>
                                             <outlet property="thePosts" destination="5Ey-MN-4T9" id="c2D-gZ-Eqd"/>
                                         </connections>
                                     </tableViewCell>
@@ -258,7 +259,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lfK-0A-LiX">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
@@ -328,6 +329,9 @@
                                                 <constraint firstAttribute="bottom" secondItem="FNv-Th-OGh" secondAttribute="bottom" constant="3" id="wWl-li-Whx"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="replyToPost" destination="QIB-Rk-HhX" id="EWS-UK-vYB"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

@@ -17,6 +17,7 @@ class PostsCell:UITableViewCell {
     @IBOutlet weak var minutesPosted: UILabel!
     @IBOutlet weak var postSettingsBtn: UIButton!
     @IBOutlet weak var likedOrNotLiked: UIButton!
+    @IBOutlet weak var replyToPost:UIButton!
     
     
     @IBAction func feelingsAboutPost(_ sender: Any) {
