@@ -27,3 +27,13 @@ class PostsCell:UITableViewCell {
     
 }
 
+
+class practiceCommentCell:UITableViewCell {
+    @IBOutlet weak var commentView:UITextView!
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 3, left: 5, bottom: -3, right: 5))
+        contentView.addShadow()
+    }
+}

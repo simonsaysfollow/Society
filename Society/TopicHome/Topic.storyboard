@@ -37,7 +37,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WaQ-SX-zQs">
                                 <rect key="frame" x="0.0" y="90" width="414" height="646"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="postsCell" rowHeight="199" id="Rm4-3v-9DX" customClass="PostsCell" customModule="Society" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="199"/>
@@ -258,7 +258,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lfK-0A-LiX">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="lfK-0A-LiX">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -331,6 +331,32 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="replyToPost" destination="QIB-Rk-HhX" id="EWS-UK-vYB"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="practiceCommentCell" rowHeight="153" id="khM-HI-Di2" customClass="practiceCommentCell" customModule="Society" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="285" width="414" height="153"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="khM-HI-Di2" id="0e8-JM-lhb">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="153"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cVX-k6-2S3">
+                                                    <rect key="frame" x="8" y="0.0" width="0.0" height="0.0"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="cVX-k6-2S3" secondAttribute="trailing" constant="8" id="ANI-77-OGE"/>
+                                                <constraint firstItem="cVX-k6-2S3" firstAttribute="leading" secondItem="0e8-JM-lhb" secondAttribute="leading" constant="8" id="CzF-Bo-v9e"/>
+                                                <constraint firstItem="cVX-k6-2S3" firstAttribute="top" secondItem="0e8-JM-lhb" secondAttribute="top" id="ou5-uQ-97g"/>
+                                                <constraint firstAttribute="bottom" secondItem="cVX-k6-2S3" secondAttribute="bottom" constant="20" symbolic="YES" id="uYL-tH-6Tt"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="commentView" destination="cVX-k6-2S3" id="OGu-Pf-02s"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
