@@ -26,11 +26,6 @@ class MainPostViewController: UIViewController {
         tableViewMain.reloadData()
     }
     
-    
-  
-    
-
-
 }
 
 extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
@@ -57,9 +52,48 @@ extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
         }
         
         let comments = tableViewMain.dequeueReusableCell(withIdentifier: "practiceCommentCell") as! practiceCommentCell
-        
         comments.commentView.text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
        return comments
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 1 {
+            return "Comments"
+        }
+        return ""
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 1 {
+            return 50 
+        }
+        return 0
+    }
+    
+
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if section == 1 {
+            view.tintColor = .orange
+            let header = view as! UITableViewHeaderFooterView
+            header.textLabel?.textColor = UIColor.white
+            
+           let button = UIButton()
+           button.tag = section
+           button.setTitle("Filter", for: .normal)
+           button.backgroundColor = .white
+           button.titleLabel?.font = UIFont(name:"UICTFontTextStyleHeadline" , size: 17)
+           button.setTitleColor(.orange, for: .normal)
+           view.addSubview(button)
+            
+            button.translatesAutoresizingMaskIntoConstraints = false
+            
+            button.topAnchor.constraint(equalTo: view.topAnchor, constant: 8).isActive = true
+            button.widthAnchor.constraint(equalToConstant: 70).isActive = true
+            button.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -10 ).isActive = true
+            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8).isActive = true
+            
+          
+        }
     }
      
    

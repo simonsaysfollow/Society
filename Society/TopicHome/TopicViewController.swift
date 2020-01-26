@@ -10,8 +10,8 @@ import UIKit
 
 class TopicViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
-    var topicPassed:String?
+    @IBOutlet weak fileprivate var tableView: UITableView!
+    public var topicPassed:String?
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +20,7 @@ class TopicViewController: UIViewController {
         tableView.dataSource = self
         
     }
-    @IBAction func addPostsToTopic(_ sender: Any) {
+    @IBAction fileprivate func addPostsToTopic(_ sender: Any) {
         
     }
     

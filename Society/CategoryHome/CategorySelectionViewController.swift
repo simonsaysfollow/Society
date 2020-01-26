@@ -25,6 +25,7 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
         collectionView.dataSource = self
         rightBarItem.image = UIImage(named: "peaceOut")!.withRenderingMode(.alwaysOriginal)
         
+        
         moreTopics.isHidden = true
         bottomCollectionView.constant  = -86
     
@@ -90,6 +91,7 @@ extension CategorySelectionViewController: UICollectionViewDelegate, UICollectio
         
         let topicH = topic.instantiateInitialViewController() as! UINavigationController
         topicH.navigationBar.topItem?.title = topics[indexPath.row]
+        topicH.navigationBar.topItem?.largeTitleDisplayMode = .always
         topicH.modalPresentationStyle = .fullScreen
         self.present(topicH,animated: true)
     }
