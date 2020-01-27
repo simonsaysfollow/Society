@@ -19,11 +19,9 @@ class MainPostViewController: UIViewController {
         tableViewMain.dataSource = self
     }
     
-
-    @objc func replyingToPost(replyToPost:UIButton) {
-        print(replyToPost.tag)
-        numOfIndex = replyToPost.tag
-        tableViewMain.reloadData()
+    
+    @objc func filterCaller() {
+        ReusableComponents().filteringOptions(viewController: self,tableView: tableViewMain)
     }
     
 }
@@ -46,13 +44,13 @@ extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
     
         if indexPath.section == 0 {
             let cell = tableViewMain.dequeueReusableCell(withIdentifier: "mainPost") as! PostsCell
-            cell.replyToPost.tag = indexPath.row
-            cell.replyToPost.addTarget(self, action: #selector(replyingToPost(replyToPost:)), for: .touchDown)
+            cell.mainTextViewPost?.font = UIFont(name: ".SFUI-Regular", size: 17)
             return cell
         }
         
         let comments = tableViewMain.dequeueReusableCell(withIdentifier: "practiceCommentCell") as! practiceCommentCell
         comments.commentView.text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        comments.commentView.font = UIFont(name: ".SFUI-Regular", size: 17)
        return comments
     }
     
@@ -81,6 +79,7 @@ extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
            button.tag = section
            button.setTitle("Filter", for: .normal)
            button.backgroundColor = .white
+            button.addTarget(self, action: #selector(filterCaller), for: .touchDown)
            button.titleLabel?.font = UIFont(name:"UICTFontTextStyleHeadline" , size: 17)
            button.setTitleColor(.orange, for: .normal)
            view.addSubview(button)

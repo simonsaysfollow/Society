@@ -11,19 +11,28 @@ import UIKit
 class TopicViewController: UIViewController {
     
     @IBOutlet weak fileprivate var tableView: UITableView!
-    public var topicPassed:String?
-        
+    
+    @IBOutlet weak var addPostBtn: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
         
-    }
-    @IBAction fileprivate func addPostsToTopic(_ sender: Any) {
+        
+        if navigationItem.title == "#MostLiked" {
+            addPostBtn.isEnabled = false
+        }
         
     }
     
+    @IBAction func selectTypeOfFilter(_ sender: UIButton) {
+            ReusableComponents().filteringOptions(viewController:self, tableView: tableView)
+
+    }
+    
+   
     @objc func postSettingsBtn() {
         
         let alert = UIAlertController(title: "", message: "What would you like to do?", preferredStyle: .actionSheet)
@@ -53,10 +62,18 @@ class TopicViewController: UIViewController {
         dismiss(animated: true)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "addingPostToTopic" {
+            let addPost:AddPostViewController = segue.destination as! AddPostViewController
+            addPost.topicPassed = navigationItem.title
+        }
+    }
+    
  
 }
 
 extension TopicViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }

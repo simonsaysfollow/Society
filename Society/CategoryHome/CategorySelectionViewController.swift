@@ -17,47 +17,60 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var moreTopics: UIButton!
     
     //MARK: variables
+    
+    fileprivate var wantMore = false
+    
     let topics = ["#MostLiked","#Sex","#Romantic","#Drugs","#FML", "#SocialInjustice","#Politics","#Feminism","#LGBTQ","#BlackLivesMatter", "#PartnerStories", "#MyDumbassBoyfriend", "#SocialInjustice","#Politics","#Feminism","#LGBTQ","#BlackLivesMatter", "#PartnerStories", "#MyDumbassBoyfriend"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        rightBarItem.image = UIImage(named: "peaceOut")!.withRenderingMode(.alwaysOriginal)
-        
-        
+//         rightBarItem.image = UIImage(named: "peaceOut")!.withRenderingMode(.alwaysOriginal)
+    
         moreTopics.isHidden = true
         bottomCollectionView.constant  = -86
+        
+    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        wantMore = false
+        collectionView.reloadData()
     }
     
     
     
      func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if wantMore == false {
 
-        if (scrollView.contentOffset.y > (scrollView.contentSize.height - scrollView.frame.size.height)) {
-            //reach bottom
-            moreTopics.isHidden = false
-            bottomCollectionView.constant  = 0
-        }
+            if (scrollView.contentOffset.y > (scrollView.contentSize.height - scrollView.frame.size.height)) {
+                //reach bottom
+                moreTopics.isHidden = false
+                bottomCollectionView.constant  = 0
+            }
 
-        if (scrollView.contentOffset.y <= 0){
-            //reach top
-             moreTopics.isHidden = true
-//             bottomCollectionView.constant  = -86
-        }
+            if (scrollView.contentOffset.y <= 0){
+                //reach top
+                 moreTopics.isHidden = true
+    //             bottomCollectionView.constant  = -86
+            }
 
-        if (scrollView.contentOffset.y > 0 && scrollView.contentOffset.y+68 < (scrollView.contentSize.height - scrollView.frame.size.height)) {
-            //not top and not bottom
-            moreTopics.isHidden = true
+            if (scrollView.contentOffset.y > 0 && scrollView.contentOffset.y+68 < (scrollView.contentSize.height - scrollView.frame.size.height)) {
+                //not top and not bottom
+                moreTopics.isHidden = true
+                bottomCollectionView.constant  = -86
 
-            bottomCollectionView.constant  = -86
-
+            }
         }
     }
     
     
     @IBAction func addMoreTopics(_ sender: Any) {
+        wantMore = true
+        moreTopics.isHidden = true
+        bottomCollectionView.constant  = -86
+        collectionView.reloadData()
     }
     
 }
@@ -66,11 +79,12 @@ extension CategorySelectionViewController: UICollectionViewDelegate, UICollectio
     
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return topics.count >= 16 ? 16 : topics.count
+        
+        return wantMore == false ? 16 : topics.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

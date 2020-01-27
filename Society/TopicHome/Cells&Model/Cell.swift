@@ -18,13 +18,12 @@ class PostsCell:UITableViewCell {
     @IBOutlet weak var postSettingsBtn: UIButton!
     @IBOutlet weak var likedOrNotLiked: UIButton!
     @IBOutlet weak var replyToPost:UIButton!
+    @IBOutlet weak var mainTextViewPost: UITextView?
     
     
     @IBAction func feelingsAboutPost(_ sender: Any) {
         likedOrNotLiked.tintColor = likedOrNotLiked.tintColor == .red ? .systemBlue : .red
     }
-   
-    
 }
 
 

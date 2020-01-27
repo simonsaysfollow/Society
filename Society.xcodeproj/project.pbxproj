@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0273AACF23DE3A6600827BB7 /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0273AACE23DE3A6600827BB7 /* AddCategoryViewController.swift */; };
 		02FF592E23D1775D00AC819D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FF592D23D1775D00AC819D /* AppDelegate.swift */; };
 		02FF593023D1775D00AC819D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FF592F23D1775D00AC819D /* SceneDelegate.swift */; };
 		02FF593223D1775D00AC819D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FF593123D1775D00AC819D /* ViewController.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0273AACE23DE3A6600827BB7 /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
 		02FF592A23D1775D00AC819D /* Society.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Society.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02FF592D23D1775D00AC819D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02FF592F23D1775D00AC819D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				02FF595023D295C800AC819D /* Cells&Models */,
 				02FF594C23D286DE00AC819D /* CategorySelectionViewController.swift */,
 				02FF594E23D286EF00AC819D /* Category.storyboard */,
+				0273AACE23DE3A6600827BB7 /* AddCategoryViewController.swift */,
 			);
 			path = CategoryHome;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 				02FF593223D1775D00AC819D /* ViewController.swift in Sources */,
 				02FF592E23D1775D00AC819D /* AppDelegate.swift in Sources */,
 				02FF593023D1775D00AC819D /* SceneDelegate.swift in Sources */,
+				0273AACF23DE3A6600827BB7 /* AddCategoryViewController.swift in Sources */,
 				02FF595523D29A0E00AC819D /* Views.swift in Sources */,
 				02FF594723D271BF00AC819D /* Designables&Inspectables.swift in Sources */,
 				02FF595823D365D600AC819D /* TopicViewController.swift in Sources */,
