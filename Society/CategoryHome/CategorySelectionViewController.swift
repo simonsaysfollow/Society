@@ -24,6 +24,7 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         collectionView.delegate = self
         collectionView.dataSource = self
 //         rightBarItem.image = UIImage(named: "peaceOut")!.withRenderingMode(.alwaysOriginal)
@@ -73,6 +74,11 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
         collectionView.reloadData()
     }
     
+    @objc func xyz() {
+        TopicViewController().reloadTableView()
+    }
+    
+    
 }
 
 extension CategorySelectionViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -83,7 +89,6 @@ extension CategorySelectionViewController: UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return wantMore == false ? 16 : topics.count
     }
     
@@ -101,11 +106,10 @@ extension CategorySelectionViewController: UICollectionViewDelegate, UICollectio
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(topics[indexPath.row])
         
         let topicH = topic.instantiateInitialViewController() as! UINavigationController
-        topicH.navigationBar.topItem?.title = topics[indexPath.row]
-        topicH.navigationBar.topItem?.largeTitleDisplayMode = .always
+        let rootViewController = topicH.viewControllers.first as! TopicViewController
+        rootViewController.topicPassed = topics[indexPath.row]
         topicH.modalPresentationStyle = .fullScreen
         self.present(topicH,animated: true)
     }

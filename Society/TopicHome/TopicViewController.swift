@@ -10,8 +10,9 @@ import UIKit
 
 class TopicViewController: UIViewController {
     
-    @IBOutlet weak fileprivate var tableView: UITableView!
+    var topicPassed:String?
     
+    @IBOutlet weak fileprivate var tableView: UITableView!
     @IBOutlet weak var addPostBtn: UIBarButtonItem!
     
     override func viewDidLoad() {
@@ -21,15 +22,29 @@ class TopicViewController: UIViewController {
         tableView.dataSource = self
         
         
+        let button = UIButton()
+        button.setTitle(topicPassed!, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title1)
+        button.addTarget(self, action: #selector(reloadTableView), for: .touchDown)
+        navigationItem.titleView = button
+        
+        
         if navigationItem.title == "#MostLiked" {
             addPostBtn.isEnabled = false
         }
         
     }
     
+    
+    
+   @objc func reloadTableView() {
+    //make sure to hit db first
+        tableView.reloadData()
+    }
+    
     @IBAction func selectTypeOfFilter(_ sender: UIButton) {
-            ReusableComponents().filteringOptions(viewController:self, tableView: tableView)
-
+        ReusableComponents().filteringOptions(viewController:self, tableView: tableView)
     }
     
    

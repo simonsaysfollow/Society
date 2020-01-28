@@ -9,16 +9,15 @@
 import UIKit
 
 class MainPostViewController: UIViewController {
-    var numOfIndex:Int?
 
     @IBOutlet weak var tableViewMain: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableViewMain.delegate = self
         tableViewMain.dataSource = self
     }
-    
     
     @objc func filterCaller() {
         ReusableComponents().filteringOptions(viewController: self,tableView: tableViewMain)
@@ -70,6 +69,7 @@ extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
     
 
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
         if section == 1 {
             view.tintColor = .orange
             let header = view as! UITableViewHeaderFooterView
@@ -90,8 +90,7 @@ extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
             button.widthAnchor.constraint(equalToConstant: 70).isActive = true
             button.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -10 ).isActive = true
             button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8).isActive = true
-            
-          
+ 
         }
     }
      
