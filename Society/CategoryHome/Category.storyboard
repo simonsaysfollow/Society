@@ -54,7 +54,7 @@
                                                     <rect key="frame" x="4" y="38" width="185" height="49"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -71,18 +71,21 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="thr-9I-yiM">
+                            <searchBar opaque="NO" contentMode="redraw" searchBarStyle="prominent" placeholder="Search" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thr-9I-yiM">
                                 <rect key="frame" x="0.0" y="43" width="414" height="65"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="5td-jl-CRc"/>
                                 </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="barTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gce-Wv-4Jl">
-                                <rect key="frame" x="0.0" y="109" width="414" height="49"/>
+                                <rect key="frame" x="0.0" y="108" width="414" height="50"/>
                                 <color key="backgroundColor" red="0.25176583899999999" green="0.39075877570000001" blue="0.54124645360000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="49" id="bnX-RE-DVE"/>
+                                    <constraint firstAttribute="height" constant="50" id="bnX-RE-DVE"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="All">
@@ -112,7 +115,7 @@
                             <constraint firstItem="1h6-Nk-tLU" firstAttribute="leading" secondItem="Rs1-bJ-pDu" secondAttribute="leading" id="UiR-LT-6lj"/>
                             <constraint firstItem="Csf-UC-KvY" firstAttribute="leading" secondItem="1h6-Nk-tLU" secondAttribute="leading" id="Yri-KE-cEj"/>
                             <constraint firstItem="Csf-UC-KvY" firstAttribute="bottom" secondItem="Rs1-bJ-pDu" secondAttribute="bottom" id="e1b-HI-dgm"/>
-                            <constraint firstItem="Gce-Wv-4Jl" firstAttribute="top" secondItem="thr-9I-yiM" secondAttribute="bottom" constant="1" id="eQt-jm-bl0"/>
+                            <constraint firstItem="Gce-Wv-4Jl" firstAttribute="top" secondItem="thr-9I-yiM" secondAttribute="bottom" id="eQt-jm-bl0"/>
                             <constraint firstItem="thr-9I-yiM" firstAttribute="leading" secondItem="Rs1-bJ-pDu" secondAttribute="leading" id="gAJ-iu-igU"/>
                             <constraint firstItem="Csf-UC-KvY" firstAttribute="trailing" secondItem="Gce-Wv-4Jl" secondAttribute="trailing" id="pG6-g9-G59"/>
                             <constraint firstItem="1h6-Nk-tLU" firstAttribute="trailing" secondItem="Rs1-bJ-pDu" secondAttribute="trailing" id="sW4-Dx-tzp"/>
@@ -133,6 +136,7 @@
                         <outlet property="collectionView" destination="1h6-Nk-tLU" id="d1O-yA-Imf"/>
                         <outlet property="moreTopics" destination="Csf-UC-KvY" id="yEc-7c-z95"/>
                         <outlet property="rightBarItem" destination="dp7-7d-sv1" id="5SZ-hN-syO"/>
+                        <outlet property="searchBar" destination="thr-9I-yiM" id="KxP-fM-L2E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qLc-hX-bkT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -143,21 +147,21 @@
         <scene sceneID="4yl-Mz-h9e">
             <objects>
                 <viewController id="1Ks-c1-LOv" customClass="AddCategoryViewController" customModule="Society" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="rIM-7y-R3G">
+                    <view key="view" contentMode="scaleToFill" id="rIM-7y-R3G">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" text="Please add short description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0ji-F1-PQZ">
+                            <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Please add short description" translatesAutoresizingMaskIntoConstraints="NO" id="0ji-F1-PQZ">
                                 <rect key="frame" x="45" y="154.66666666666666" width="324" height="73"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="0dV-QX-rRr"/>
+                                    <constraint firstAttribute="height" constant="73" id="0dV-QX-rRr"/>
                                 </constraints>
                                 <color key="textColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9z-XT-MDJ">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9z-XT-MDJ">
                                 <rect key="frame" x="42" y="264" width="330" height="50"/>
                                 <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -187,8 +191,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Yup thats LIT! Society NEEDS this!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zmE-ye-39f">
-                                <rect key="frame" x="61" y="235.66666666666663" width="292" height="20.333333333333343"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yup thats LIT! Society NEEDS this!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zmE-ye-39f">
+                                <rect key="frame" x="61" y="235.66666666666666" width="292" height="20.333333333333343"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.329999999999998" id="cQn-GS-jwa"/>
                                 </constraints>
@@ -198,6 +202,7 @@
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Topic" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JDB-Xq-uJU">
                                 <rect key="frame" x="45" y="67" width="324" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="jsH-8t-V8V"/>
                                 </constraints>

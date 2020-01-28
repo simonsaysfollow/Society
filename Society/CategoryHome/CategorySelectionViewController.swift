@@ -15,6 +15,7 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var rightBarItem: UIBarButtonItem!
     @IBOutlet weak var moreTopics: UIButton!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     //MARK: variables
     
@@ -28,7 +29,7 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
         collectionView.delegate = self
         collectionView.dataSource = self
 //         rightBarItem.image = UIImage(named: "peaceOut")!.withRenderingMode(.alwaysOriginal)
-    
+        searchBar.searchTextField .backgroundColor = .white
         moreTopics.isHidden = true
         bottomCollectionView.constant  = -86
         

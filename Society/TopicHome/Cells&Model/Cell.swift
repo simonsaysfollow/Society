@@ -32,7 +32,9 @@ class practiceCommentCell:UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        contentView.backgroundColor = .white
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 3, left: 5, bottom: -3, right: 5))
         contentView.addShadow()
+        
     }
 }
