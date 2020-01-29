@@ -17,7 +17,6 @@
                         <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
@@ -348,11 +347,11 @@
                                             <outlet property="replyToPost" destination="QIB-Rk-HhX" id="EWS-UK-vYB"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="practiceCommentCell" rowHeight="44" id="khM-HI-Di2" customClass="practiceCommentCell" customModule="Society" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="285" width="414" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="practiceCommentCell" rowHeight="68" id="khM-HI-Di2" customClass="practiceCommentCell" customModule="Society" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="285" width="414" height="68"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="khM-HI-Di2" id="0e8-JM-lhb">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="68"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cVX-k6-2S3">
@@ -368,9 +367,10 @@
                                                 <constraint firstAttribute="trailing" secondItem="cVX-k6-2S3" secondAttribute="trailing" constant="8" id="ANI-77-OGE"/>
                                                 <constraint firstItem="cVX-k6-2S3" firstAttribute="leading" secondItem="0e8-JM-lhb" secondAttribute="leading" constant="8" id="CzF-Bo-v9e"/>
                                                 <constraint firstItem="cVX-k6-2S3" firstAttribute="top" secondItem="0e8-JM-lhb" secondAttribute="top" id="ou5-uQ-97g"/>
-                                                <constraint firstAttribute="bottom" secondItem="cVX-k6-2S3" secondAttribute="bottom" constant="20" symbolic="YES" id="uYL-tH-6Tt"/>
+                                                <constraint firstAttribute="bottom" secondItem="cVX-k6-2S3" secondAttribute="bottom" id="uYL-tH-6Tt"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="commentView" destination="cVX-k6-2S3" id="OGu-Pf-02s"/>
                                         </connections>

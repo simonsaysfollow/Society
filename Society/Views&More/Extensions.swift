@@ -16,10 +16,12 @@ extension UINavigationController {
 
 extension UITextField {
     
-    func addBottomBorder(borderWidth:CGFloat){
+    func addBottomBorder(borderWidth:CGFloat, colorSwitch:Int?){
         let bottomLine = CALayer()
         bottomLine.frame = CGRect(x: 0, y: self.frame.size.height - 4, width: self.frame.size.width, height: 2 )
-        bottomLine.backgroundColor = UIColor.white.cgColor
+        if colorSwitch == 2 { bottomLine.backgroundColor = UIColor.red.cgColor } else {
+            bottomLine.backgroundColor = UIColor.white.cgColor
+        }
         borderStyle = .none
         layer.addSublayer(bottomLine)
     }
@@ -34,7 +36,7 @@ extension String {
 
 extension UIView {
     func addShadow(){
-        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOpacity = 0.5
         self.layer.shadowRadius = 5
         self.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
@@ -44,7 +46,23 @@ extension UIView {
     }
 }
 
+extension UIViewController
+{
+    func setupToHideKeyboardOnTapOnView()
+    {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(UIViewController.dismissKeyboard))
 
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard()
+    {
+        view.endEditing(true)
+    }
+}
 
 class ReusableComponents:UIViewController {
     

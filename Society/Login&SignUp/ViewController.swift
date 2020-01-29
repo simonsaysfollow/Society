@@ -17,10 +17,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         userName.attributedPlaceholder = "Username".textPlaceHolder()
-        userName.addBottomBorder(borderWidth: 2)
+        userName.addBottomBorder(borderWidth: 2, colorSwitch: nil)
         password.attributedPlaceholder = "Password".textPlaceHolder()
-        password.addBottomBorder(borderWidth: 2)
+        password.addBottomBorder(borderWidth: 2, colorSwitch: nil)
         
+        self.setupToHideKeyboardOnTapOnView()
     }
 
     @IBAction func loginBtn(_ sender: Any) {

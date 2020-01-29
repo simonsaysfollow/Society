@@ -17,6 +17,8 @@ class AddPostViewController: UIViewController,UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setupToHideKeyboardOnTapOnView()
 
         topicToBePostedTo.text = topicPassed
         topicToBePostedTo.font = .monospacedDigitSystemFont(ofSize: 24, weight: .medium)

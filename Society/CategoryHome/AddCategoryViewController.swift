@@ -16,13 +16,12 @@ class AddCategoryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.setupToHideKeyboardOnTapOnView()
         // Do any additional setup after loading the view.
         categoryName.layer.borderColor = UIColor.black.cgColor
         categoryName.layer.borderWidth = 1
         categoryDescription.layer.borderColor = UIColor.black.cgColor
         categoryDescription.layer.borderWidth = 1
-        
         
     }
     

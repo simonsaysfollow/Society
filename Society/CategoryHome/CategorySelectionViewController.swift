@@ -31,9 +31,10 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setupToHideKeyboardOnTapOnView()
+        
         collectionView.delegate = self
         collectionView.dataSource = self
-//         rightBarItem.image = UIImage(named: "peaceOut")!.withRenderingMode(.alwaysOriginal)
         searchBar.searchTextField .backgroundColor = .white
         moreTopics.isHidden = true
         bottomCollectionView.constant  = -86
@@ -44,9 +45,7 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
         wantMore = false
         collectionView.reloadData()
     }
-    
-    
-    
+        
      func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if wantMore == false {

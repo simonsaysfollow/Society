@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import Firebase
     
 let main = UIStoryboard(name: "Main", bundle: nil)
 let category = UIStoryboard(name: "Category", bundle: nil)
 let topic = UIStoryboard(name: "Topic", bundle: nil)
+var firebaseRef = Database.database().reference()
 
     
 var mainHome: UINavigationController  {
