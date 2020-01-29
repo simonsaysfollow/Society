@@ -16,6 +16,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="Gaa-Gn-Ivm" kind="relationship" relationship="rootViewController" id="IEy-Li-mgb"/>
@@ -25,7 +29,7 @@
             </objects>
             <point key="canvasLocation" x="-806" y="165"/>
         </scene>
-        <!--Category Selection View Controller-->
+        <!--Society-->
         <scene sceneID="Qok-aB-1KA">
             <objects>
                 <viewController id="Gaa-Gn-Ivm" customClass="CategorySelectionViewController" customModule="Society" customModuleProvider="target" sceneMemberID="viewController">
@@ -123,7 +127,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Rs1-bJ-pDu"/>
                     </view>
-                    <navigationItem key="navigationItem" id="3no-Uv-nVv">
+                    <navigationItem key="navigationItem" title="Society" id="3no-Uv-nVv">
                         <barButtonItem key="leftBarButtonItem" image="gear" catalog="system" id="dp7-7d-sv1"/>
                         <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="lZH-Nl-YeE">
                             <connections>

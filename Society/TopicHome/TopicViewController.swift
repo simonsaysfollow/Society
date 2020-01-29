@@ -15,12 +15,26 @@ class TopicViewController: UIViewController {
     @IBOutlet weak fileprivate var tableView: UITableView!
     @IBOutlet weak var addPostBtn: UIBarButtonItem!
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+             return .darkContent
+       }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
+                
+        createButtonAsTitle()
         
+        if navigationItem.title == "#MostLiked" {
+            addPostBtn.isEnabled = false
+        }
+    }
+    
+    
+
+    func createButtonAsTitle() {
         
         let button = UIButton()
         button.setTitle(topicPassed!, for: .normal)
@@ -28,12 +42,6 @@ class TopicViewController: UIViewController {
         button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title1)
         button.addTarget(self, action: #selector(reloadTableView), for: .touchDown)
         navigationItem.titleView = button
-        
-        
-        if navigationItem.title == "#MostLiked" {
-            addPostBtn.isEnabled = false
-        }
-        
     }
     
     

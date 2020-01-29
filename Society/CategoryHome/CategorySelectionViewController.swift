@@ -23,6 +23,11 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
     
     let topics = ["#MostLiked","#Sex","#Romantic","#Drugs","#FML", "#SocialInjustice","#Politics","#Feminism","#LGBTQ","#BlackLivesMatter", "#PartnerStories", "#MyDumbassBoyfriend", "#SocialInjustice","#Politics","#Feminism","#LGBTQ","#BlackLivesMatter", "#PartnerStories", "#MyDumbassBoyfriend"]
     
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
