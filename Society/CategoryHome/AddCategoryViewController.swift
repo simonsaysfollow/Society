@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddCategoryViewController: UIViewController {
+class AddCategoryViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var categoryName: UITextField!
     @IBOutlet weak var categoryDescription: UITextView!
@@ -23,11 +23,33 @@ class AddCategoryViewController: UIViewController {
         categoryDescription.layer.borderColor = UIColor.black.cgColor
         categoryDescription.layer.borderWidth = 1
         
+        categoryDescription.delegate = self
+        categoryDescription.textColor = UIColor.lightGray
+        
     }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        
+           if textView.textColor == UIColor.lightGray {
+               textView.text = ""
+               textView.textColor = UIColor.orange
+           }
+        
+       }
+       
+       func textViewDidEndEditing(_ textView: UITextView) {
+
+           if textView.text == "" {
+               textView.text = "Placeholder text ..."
+               textView.textColor = UIColor.lightGray
+           }
+       }
     
 
     @IBAction func addCategory(_ sender: Any) {
-        
+        var topicName = categoryName.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        topicName = topicName.contains("#") ? topicName.replacingOccurrences(of: "#", with: "") : "#\(categoryName.text!.trimmingCharacters(in: .whitespacesAndNewlines))"
+        TopicModel(topicLabel: topicName.capitalized, topicDescription: categoryDescription.text!,viewController:self)
     }
     
 }

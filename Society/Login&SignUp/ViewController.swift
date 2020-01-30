@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import AudioToolbox
 
 class ViewController: UIViewController {
 
@@ -23,9 +25,32 @@ class ViewController: UIViewController {
         
         self.setupToHideKeyboardOnTapOnView()
     }
+    
 
     @IBAction func loginBtn(_ sender: Any) {
-        self.present(categoryHome,animated: true)
+        
+        guard var usernameString = userName.text else {
+            userName.addBottomBorder(borderWidth: 2, colorSwitch: 2)
+            return
+        }
+        guard var passwordString = password.text else {
+           password.addBottomBorder(borderWidth: 2, colorSwitch: 2)
+           return
+        }
+        usernameString = usernameString.trimmingCharacters(in: .whitespacesAndNewlines)
+        usernameString.append(emailString)
+        passwordString = passwordString.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        Auth.auth().signIn(withEmail: usernameString, password: passwordString) { (success, error) in
+            if (error != nil) {
+                print(error?.localizedDescription ?? "Error signing in")
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                self.userName.addBottomBorder(borderWidth: 2, colorSwitch: 2)
+                self.password.addBottomBorder(borderWidth: 2, colorSwitch: 2)
+                return
+            }
+           self.present(categoryHome,animated: true)
+        }
     }
 }
 

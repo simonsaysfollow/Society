@@ -9,6 +9,19 @@
 import UIKit
 import Firebase
 
+class UserInfo {
+    var userid:String?
+    var deviceid:String?
+    
+    init(userid:String, deviceid:String) {
+        if userid.isEmpty || deviceid.isEmpty {
+            return
+        }
+        self.userid = userid
+        self.deviceid = deviceid
+    }
+}
+
 class SignUpModel {
     var username:String?
     var password:String?
@@ -24,17 +37,22 @@ class SignUpModel {
         appendingEmailFormat()
     }
     
+    // Make this reusable
     fileprivate func appendingEmailFormat() {
-        self.username?.append("@society.com")
+        self.username?.append(emailString)
         sendToDB()
     }
     
     func sendToDB() {
         Auth.auth().createUser(withEmail: username!, password: password!) { (success, error) in
             if (error != nil) {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription ?? "An error has occured when attempting to register user")
                 return
             }
+            let obj = UserInfo(userid:(success?.user.uid)! , deviceid:  UIDevice.current.name)
+            firebaseRef.child("deviceID").childByAutoId().setValue(["userid":obj.userid,"deviceid": obj.deviceid])
+
+            
             print(success?.user.uid ?? "Empty userID")
             self.viewController?.dismiss(animated: true)
         }

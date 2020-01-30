@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import Firebase
 
 class SettingsViewController: UIViewController {
+    
     //MARK:IBOutlets 
     @IBOutlet weak var signOut:UIBarButtonItem!
     
@@ -18,14 +20,16 @@ class SettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
         signOut.image = UIImage(named: "peaceOut")!.withRenderingMode(.alwaysOriginal)
     }
+    
     @IBAction func signOutBtn(_ sender: Any) {
-        
-        present(mainHome,animated: true)
+        do {
+            try Auth.auth().signOut()
+             present(mainHome,animated: true)
+        } catch let error {
+            print("Cannot Sign out \n \(error)")
+        }
     }
     
 }
