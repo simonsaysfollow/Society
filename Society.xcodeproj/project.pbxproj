@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		024560A923E3C4A700506DEC /* DataTopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024560A823E3C4A700506DEC /* DataTopicModel.swift */; };
 		02480BF323E263EF0058FBAE /* LoginUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02480BF223E263EF0058FBAE /* LoginUser.swift */; };
 		0273AACF23DE3A6600827BB7 /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0273AACE23DE3A6600827BB7 /* AddCategoryViewController.swift */; };
 		0273AAD123E108C100827BB7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0273AAD023E108C100827BB7 /* SettingsViewController.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		024560A823E3C4A700506DEC /* DataTopicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTopicModel.swift; sourceTree = "<group>"; };
 		02480BF223E263EF0058FBAE /* LoginUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUser.swift; sourceTree = "<group>"; };
 		0273AACE23DE3A6600827BB7 /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
 		0273AAD023E108C100827BB7 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			children = (
 				02FF595123D295ED00AC819D /* CollectionCell.swift */,
 				0273AAD223E1181000827BB7 /* TopicModel.swift */,
+				024560A823E3C4A700506DEC /* DataTopicModel.swift */,
 			);
 			path = "Cells&Models";
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				0273AAD823E11C7F00827BB7 /* SignUpModel.swift in Sources */,
 				02FF594923D281DC00AC819D /* SignUpViewController.swift in Sources */,
 				02FF595F23D635F100AC819D /* AddPostViewController.swift in Sources */,
+				024560A923E3C4A700506DEC /* DataTopicModel.swift in Sources */,
 				02FF596123D69FBB00AC819D /* MainPostViewController.swift in Sources */,
 				02FF594D23D286DE00AC819D /* CategorySelectionViewController.swift in Sources */,
 				0273AAD123E108C100827BB7 /* SettingsViewController.swift in Sources */,

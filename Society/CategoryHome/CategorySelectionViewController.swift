@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import Firebase
 
 class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var bottomCollectionView: NSLayoutConstraint!
     
     //MARK: IBOutlets
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak fileprivate var collectionView: UICollectionView!
     @IBOutlet weak var rightBarItem: UIBarButtonItem!
     @IBOutlet weak var moreTopics: UIButton!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -23,6 +24,7 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
     
     let topics = ["#MostLiked","#Sex","#Romantic","#Drugs","#FML", "#SocialInjustice","#Politics","#Feminism","#LGBTQ","#BlackLivesMatter", "#PartnerStories", "#MyDumbassBoyfriend", "#SocialInjustice","#Politics","#Feminism","#LGBTQ","#BlackLivesMatter", "#PartnerStories", "#MyDumbassBoyfriend"]
     
+    var topicData = [DataTopicModel]()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
@@ -31,10 +33,11 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setupToHideKeyboardOnTapOnView()
+        getTopicsFromDB()
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        self.setupToHideKeyboardOnTapOnView()
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
         searchBar.searchTextField .backgroundColor = .white
         moreTopics.isHidden = true
         bottomCollectionView.constant  = -86
@@ -42,8 +45,10 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        wantMore = false
-        collectionView.reloadData()
+        if wantMore == true {
+            wantMore = false
+            collectionView.reloadData()
+        }
     }
         
      func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -71,6 +76,22 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+     func getTopicsFromDB() {
+        
+        firebaseRef.child("Topics").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if snapshot.exists() {
+                let snapshot = snapshot.value as! NSDictionary
+                
+                for keys in snapshot.allKeys {
+                    let values = snapshot.value(forKey: keys as! String) as? NSDictionary
+                    self.topicData.append(DataTopicModel(snapshot: values!)!)
+                    self.collectionView.reloadData()
+                }
+            }
+        })
+    }
+    
     
     @IBAction func addMoreTopics(_ sender: Any) {
         wantMore = true
@@ -94,13 +115,18 @@ extension CategorySelectionViewController: UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return wantMore == false ? 16 : topics.count
+        return wantMore == false ? (self.topicData.count >= 12 ? 12 : self.topicData.count) : self.topicData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+     
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "topicCollection", for: indexPath) as! CollectionCell
-        cell.topicLabel.text = topics[indexPath.row]
+        
+        if indexPath.row == 0 {
+            cell.topicLabel.text = topicData[2].topicLabel
+        }
+        cell.topicLabel.text = topicData[indexPath.row].topicLabel
+        cell.topicLabel.textColor = .orange
         cell.layer.cornerRadius = 12
         cell.layer.masksToBounds = true
         cell.layer.borderWidth = 1
@@ -114,7 +140,7 @@ extension CategorySelectionViewController: UICollectionViewDelegate, UICollectio
         
         let topicH = topic.instantiateInitialViewController() as! UINavigationController
         let rootViewController = topicH.viewControllers.first as! TopicViewController
-        rootViewController.topicPassed = topics[indexPath.row]
+        rootViewController.topicPassed = topicData[indexPath.row].topicLabel
         topicH.modalPresentationStyle = .fullScreen
         self.present(topicH,animated: true)
     }

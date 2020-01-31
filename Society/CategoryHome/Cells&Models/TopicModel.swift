@@ -26,7 +26,7 @@ class TopicModel {
     }
     
     func enteringIntoTopicCreatedDB() {
-    firebaseRef.child("Topics").childByAutoId().setValue(["topiclabel":topicLabel,"topicdescription":topicDescription,"createdbyuser":Auth.auth().currentUser?.uid])
+        firebaseRef.child("Topics").childByAutoId().setValue(["topiclabel": topicLabel!, "topicdescription": topicDescription!,"createdbyuser":Auth.auth().currentUser!.uid, "flagged":false])
         viewController?.dismiss(animated: true)
     }
 }
