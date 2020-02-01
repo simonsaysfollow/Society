@@ -143,7 +143,6 @@ extension CategorySelectionViewController: UICollectionViewDelegate, UICollectio
         let topicH = topic.instantiateInitialViewController() as! UINavigationController
         let rootViewController = topicH.viewControllers.first as! TopicViewController
         rootViewController.topicPassed = dataToBePassed
-        rootViewController.getPostsByTopic(topic: dataToBePassed)
         topicH.modalPresentationStyle = .fullScreen
         self.present(topicH,animated: true)
     }

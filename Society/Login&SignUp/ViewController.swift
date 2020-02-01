@@ -41,16 +41,16 @@ class ViewController: UIViewController {
         usernameString.append(emailString)
         passwordString = passwordString.trimmingCharacters(in: .whitespacesAndNewlines)
 
-        Auth.auth().signIn(withEmail: usernameString, password: passwordString) { (success, error) in
-            if (error != nil) {
-                print(error?.localizedDescription ?? "Error signing in")
-                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                self.userName.addBottomBorder(borderWidth: 2, colorSwitch: 2)
-                self.password.addBottomBorder(borderWidth: 2, colorSwitch: 2)
-                return
-            }
+//        Auth.auth().signIn(withEmail: usernameString, password: passwordString) { (success, error) in
+//            if (error != nil) {
+//                print(error?.localizedDescription ?? "Error signing in")
+//                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+//                self.userName.addBottomBorder(borderWidth: 2, colorSwitch: 2)
+//                self.password.addBottomBorder(borderWidth: 2, colorSwitch: 2)
+//                return
+//            }
            self.present(categoryHome,animated: true)
-        }
+//        }
     }
 }
 

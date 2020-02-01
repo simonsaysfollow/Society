@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class AddPostViewController: UIViewController,UITextViewDelegate {
     
@@ -29,13 +30,19 @@ class AddPostViewController: UIViewController,UITextViewDelegate {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        //save options incase they come back to it
+        //store data so even if they go back they have it
         print("happening")
     }
     
     @IBAction func postingBtn(_ sender: Any) {
         //clear options if posted
+        addPostPerTopic()
         dismiss(animated: true)
+    }
+    
+    func addPostPerTopic() {
+        let topicDB = TopicViewController().removeHashTag(topic: topicPassed!)
+        TopicPostModel(topic: topicDB, thePost: userStory.text, createdBy: Auth.auth().currentUser!.uid, allowComments: isCommentAllowed.isOn, createdByUsername: Resuable().removeEmailString(username: (Auth.auth().currentUser?.email)!),viewController: self)
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
