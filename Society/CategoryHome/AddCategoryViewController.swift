@@ -47,8 +47,9 @@ class AddCategoryViewController: UIViewController, UITextViewDelegate {
     
 
     @IBAction func addCategory(_ sender: Any) {
-        var topicName = categoryName.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        topicName = topicName.contains("#") ? topicName.replacingOccurrences(of: "#", with: "") : "#\(categoryName.text!.trimmingCharacters(in: .whitespacesAndNewlines))"
+//        var topicName = categoryName.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        var topicName = categoryName.text!.components(separatedBy: .whitespacesAndNewlines).joined()
+        topicName = topicName.contains("#") ? topicName.replacingOccurrences(of: "#", with: "") : "#\(topicName)"
         TopicModel(topicLabel: topicName.capitalized, topicDescription: categoryDescription.text!,viewController:self)
     }
     

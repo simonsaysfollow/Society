@@ -22,9 +22,9 @@ class TopicViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         tableView.delegate = self
         tableView.dataSource = self
-                
         createButtonAsTitle()
         
         if navigationItem.title == "#MostLiked" {
@@ -33,9 +33,7 @@ class TopicViewController: UIViewController {
     }
     
     
-
-    func createButtonAsTitle() {
-        
+   fileprivate func createButtonAsTitle() {
         let button = UIButton()
         button.setTitle(topicPassed!, for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -44,8 +42,6 @@ class TopicViewController: UIViewController {
         navigationItem.titleView = button
     }
     
-    
-    
    @objc func reloadTableView() {
     //make sure to hit db first
         tableView.reloadData()
@@ -53,6 +49,11 @@ class TopicViewController: UIViewController {
     
     @IBAction func selectTypeOfFilter(_ sender: UIButton) {
         ReusableComponents().filteringOptions(viewController:self, tableView: tableView)
+    }
+    
+    //calling from categorySelectionViewController - this calls db for post specific to topic
+     func getPostsByTopic(topic:String) {
+        print(topic)
     }
     
    

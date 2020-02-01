@@ -95,6 +95,9 @@
                                 <state key="normal" title="All">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="grabPostFromAllTopics:" destination="Gaa-Gn-Ivm" eventType="touchUpInside" id="sxb-5q-ONv"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Csf-UC-KvY">
                                 <rect key="frame" x="0.0" y="650" width="414" height="86"/>

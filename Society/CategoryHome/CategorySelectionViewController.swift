@@ -50,7 +50,8 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
             collectionView.reloadData()
         }
     }
-        
+    
+    // check to see where the scroll controller is and addeds button for more buttons only at the bottom
      func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if wantMore == false {
@@ -61,10 +62,9 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
                 bottomCollectionView.constant  = 0
             }
 
-            if (scrollView.contentOffset.y <= 0){
+            if (scrollView.contentOffset.y <= 0) {
                 //reach top
                  moreTopics.isHidden = true
-    //             bottomCollectionView.constant  = -86
             }
 
             if (scrollView.contentOffset.y > 0 && scrollView.contentOffset.y+68 < (scrollView.contentSize.height - scrollView.frame.size.height)) {
@@ -75,14 +75,14 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
-    
+    //   Gets all the topics from the DB and consistently observes for new added topics
      func getTopicsFromDB() {
         
-        firebaseRef.child("Topics").observeSingleEvent(of: .value, with: { (snapshot) in
+        firebaseRef.child("Topics").observe(.value, with: { (snapshot) in
             
             if snapshot.exists() {
+                if !self.topicData.isEmpty {self.topicData.removeAll()}
                 let snapshot = snapshot.value as! NSDictionary
-                
                 for keys in snapshot.allKeys {
                     let values = snapshot.value(forKey: keys as! String) as? NSDictionary
                     self.topicData.append(DataTopicModel(snapshot: values!)!)
@@ -100,10 +100,10 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
         collectionView.reloadData()
     }
     
-    @objc func xyz() {
-        TopicViewController().reloadTableView()
-    }
     
+    @IBAction func grabPostFromAllTopics(_ sender: Any) {
+        passDataToTopicView(dataIndexPath: nil, dataString: "ALL")
+    }
     
 }
 
@@ -122,9 +122,7 @@ extension CategorySelectionViewController: UICollectionViewDelegate, UICollectio
      
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "topicCollection", for: indexPath) as! CollectionCell
         
-        if indexPath.row == 0 {
-            cell.topicLabel.text = topicData[2].topicLabel
-        }
+       
         cell.topicLabel.text = topicData[indexPath.row].topicLabel
         cell.topicLabel.textColor = .orange
         cell.layer.cornerRadius = 12
@@ -137,10 +135,15 @@ extension CategorySelectionViewController: UICollectionViewDelegate, UICollectio
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        passDataToTopicView(dataIndexPath: indexPath.row, dataString: "")
+    }
+    
+    fileprivate func passDataToTopicView(dataIndexPath:Int?, dataString:String) {
+        let  dataToBePassed = dataString.isEmpty ? topicData[dataIndexPath!].topicLabel! : dataString
         let topicH = topic.instantiateInitialViewController() as! UINavigationController
         let rootViewController = topicH.viewControllers.first as! TopicViewController
-        rootViewController.topicPassed = topicData[indexPath.row].topicLabel
+        rootViewController.topicPassed = dataToBePassed
+        rootViewController.getPostsByTopic(topic: dataToBePassed)
         topicH.modalPresentationStyle = .fullScreen
         self.present(topicH,animated: true)
     }
