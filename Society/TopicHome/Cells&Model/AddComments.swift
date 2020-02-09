@@ -58,9 +58,9 @@ class AddComments {
                 firebaseRef.child("comments").child(self.postYourRespondingToKey!).observeSingleEvent(of: .value) { (DataSnapshot) in
                     if DataSnapshot.exists(){
                         let x = DataSnapshot.childrenCount
-                        _ = firebaseRef.child("comments").child(self.postYourRespondingToKey!).updateChildValues([String(x+1):success.key])
+                        _ = firebaseRef.child("comments").child(self.postYourRespondingToKey!).updateChildValues(["value\(x+1)":success.key!])
                     }else {
-                    firebaseRef.child("comments").child(self.postYourRespondingToKey!).setValue([String(1):success.key])
+                    firebaseRef.child("comments").child(self.postYourRespondingToKey!).setValue(["value\(1)":success.key])
                     }
                 }
                 

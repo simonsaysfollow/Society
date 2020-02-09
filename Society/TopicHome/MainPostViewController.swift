@@ -8,12 +8,14 @@
 
 import UIKit
 import Firebase
+import SwiftyJSON
 
 class MainPostViewController: UIViewController {
 
     @IBOutlet weak var tableViewMain: UITableView!
     
     var postPassed: GetTopicPost?
+    var postComment: GetComment?
     var comment = [GetComment]()
     
     override func viewDidLoad() {
@@ -36,16 +38,19 @@ class MainPostViewController: UIViewController {
 //    }
 //
     fileprivate func getComments() {
-        
-        firebaseRef.child("comments").child(postPassed!.topicKey!).observe(.value) { (snapshot) in
+        let passedObj = postPassed?.topicKey == nil ? postComment?.commentKey : postPassed?.topicKey
+        let passedObjCount:Int = postPassed?.topicKey == nil ? postComment!.commentCount! : 3
+        firebaseRef.child("comments").child(passedObj!).observe(.value) { (snapshot) in
             if snapshot.exists() {
                 for num in 0..<snapshot.childrenCount {
                    let snap = snapshot.children.allObjects[Int(num)] as! DataSnapshot
-                   let snapKey = snap.value! as! String
-                    firebaseRef.child("comments").child(snapKey).observe(.value) { (snapshot) in
+                   let snapKey = snap.value! as? String
+                    if snapKey != passedObj && snapKey != nil {
+                        firebaseRef.child("comments").child(snapKey!).observe(.value) { (snapshot) in
                         self.comment.append(GetComment(snapshot: snapshot))
                         self.tableViewMain.reloadData()
                     }
+                }
                 }
             }
         }
@@ -76,8 +81,7 @@ extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableViewMain.dequeueReusableCell(withIdentifier: "mainPost") as! PostsCell
-            cell.mainTextViewPost?.text = postPassed?.thePost
-            cell.
+            cell.mainTextViewPost?.text = postPassed?.thePost == nil ? postComment?.theComment : postPassed?.thePost
             cell.replyToPost.addTarget(self, action: #selector(replyBtnSelected), for: .touchDown)
             return cell
         }
@@ -136,6 +140,7 @@ extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
 
         if indexPath.section == 1 {
            let mainPost = topic.instantiateViewController(identifier: "theMainPost") as! MainPostViewController
+            mainPost.postComment = comment[indexPath.row]
            present(mainPost,animated: true)
         }
         
