@@ -9,10 +9,11 @@
 /* Begin PBXBuildFile section */
 		024560A923E3C4A700506DEC /* DataTopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024560A823E3C4A700506DEC /* DataTopicModel.swift */; };
 		024560AB23E5232400506DEC /* TopicPostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024560AA23E5232400506DEC /* TopicPostModel.swift */; };
-		024560AD23E5276A00506DEC /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024560AC23E5276A00506DEC /* Comments.swift */; };
+		024560AD23E5276A00506DEC /* AddComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024560AC23E5276A00506DEC /* AddComments.swift */; };
 		024560AF23E544D500506DEC /* GetTopicPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024560AE23E544D500506DEC /* GetTopicPost.swift */; };
 		024560B123E54A8300506DEC /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024560B023E54A8300506DEC /* Reusable.swift */; };
 		02480BF323E263EF0058FBAE /* LoginUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02480BF223E263EF0058FBAE /* LoginUser.swift */; };
+		0256881223EF9346004BC637 /* GetComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0256881123EF9346004BC637 /* GetComments.swift */; };
 		0273AACF23DE3A6600827BB7 /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0273AACE23DE3A6600827BB7 /* AddCategoryViewController.swift */; };
 		0273AAD123E108C100827BB7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0273AAD023E108C100827BB7 /* SettingsViewController.swift */; };
 		0273AAD323E1181000827BB7 /* TopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0273AAD223E1181000827BB7 /* TopicModel.swift */; };
@@ -42,10 +43,11 @@
 /* Begin PBXFileReference section */
 		024560A823E3C4A700506DEC /* DataTopicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTopicModel.swift; sourceTree = "<group>"; };
 		024560AA23E5232400506DEC /* TopicPostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicPostModel.swift; sourceTree = "<group>"; };
-		024560AC23E5276A00506DEC /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
+		024560AC23E5276A00506DEC /* AddComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddComments.swift; sourceTree = "<group>"; };
 		024560AE23E544D500506DEC /* GetTopicPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTopicPost.swift; sourceTree = "<group>"; };
 		024560B023E54A8300506DEC /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		02480BF223E263EF0058FBAE /* LoginUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUser.swift; sourceTree = "<group>"; };
+		0256881123EF9346004BC637 /* GetComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetComments.swift; sourceTree = "<group>"; };
 		0273AACE23DE3A6600827BB7 /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
 		0273AAD023E108C100827BB7 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0273AAD223E1181000827BB7 /* TopicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicModel.swift; sourceTree = "<group>"; };
@@ -193,8 +195,9 @@
 			children = (
 				02FF595C23D373D300AC819D /* Cell.swift */,
 				024560AA23E5232400506DEC /* TopicPostModel.swift */,
-				024560AC23E5276A00506DEC /* Comments.swift */,
+				024560AC23E5276A00506DEC /* AddComments.swift */,
 				024560AE23E544D500506DEC /* GetTopicPost.swift */,
+				0256881123EF9346004BC637 /* GetComments.swift */,
 			);
 			path = "Cells&Model";
 			sourceTree = "<group>";
@@ -352,7 +355,8 @@
 				02480BF323E263EF0058FBAE /* LoginUser.swift in Sources */,
 				02FF592E23D1775D00AC819D /* AppDelegate.swift in Sources */,
 				02FF593023D1775D00AC819D /* SceneDelegate.swift in Sources */,
-				024560AD23E5276A00506DEC /* Comments.swift in Sources */,
+				0256881223EF9346004BC637 /* GetComments.swift in Sources */,
+				024560AD23E5276A00506DEC /* AddComments.swift in Sources */,
 				024560AF23E544D500506DEC /* GetTopicPost.swift in Sources */,
 				0273AACF23DE3A6600827BB7 /* AddCategoryViewController.swift in Sources */,
 				02FF595523D29A0E00AC819D /* Views.swift in Sources */,

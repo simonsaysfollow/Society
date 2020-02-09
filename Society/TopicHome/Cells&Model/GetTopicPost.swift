@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 
 class GetTopicPost {
+    var topicKey:String?
     var topic:String?
     var flagged:Bool?
     var thePost:String?
@@ -20,21 +21,26 @@ class GetTopicPost {
     var trashCount:Int?
     var createdByUsername:String?
     var allowComments:Bool?
+//    lazy var comments = [Comments]()
     
-    init(snapshot:NSDictionary) {
+    init(snapshot:DataSnapshot) {
+       if snapshot.exists() {
         
-        if snapshot.count == 0 {
-            return
+        self.topicKey = snapshot.key
+        let obj = snapshot.value as! NSDictionary
+       
+        self.topic = obj["topic"] as? String
+        self.flagged = obj["flagged"] as? Bool
+        self.thePost = obj["thepost"] as? String
+        self.liked = obj["liked"] as? Bool
+        self.trash = obj["trash"] as? Bool
+        self.likedCount = obj["likedcount"] as? Int
+        self.trashCount =  obj["trashcount"] as? Int
+        self.createdByUsername =  obj["createdbyusername"] as? String
+        self.allowComments =  obj["allowcomments"] as? Bool
+        self.timeOfPost = (obj["timeofpost"] as? TimeInterval)!
+
         }
-        self.topic = snapshot["topic"] as? String
-        self.flagged = snapshot["flagged"] as? Bool
-        self.thePost = snapshot["thepost"] as? String
-        self.liked = snapshot["liked"] as? Bool
-        self.trash = snapshot["trash"] as? Bool
-        self.likedCount = snapshot["likedcount"] as? Int
-        self.trashCount =  snapshot["trashcount"] as? Int
-        self.createdByUsername =  snapshot["createdbyusername"] as? String
-        self.allowComments =  snapshot["allowcomments"] as? Bool
-        self.timeOfPost = snapshot["timeofpost"] as? TimeInterval
     }
 }
+

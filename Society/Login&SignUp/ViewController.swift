@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         usernameString.append(emailString)
         passwordString = passwordString.trimmingCharacters(in: .whitespacesAndNewlines)
 
-//        Auth.auth().signIn(withEmail: usernameString, password: passwordString) { (success, error) in
+        Auth.auth().signIn(withEmail: usernameString, password: passwordString) { (success, error) in
 //            if (error != nil) {
 //                print(error?.localizedDescription ?? "Error signing in")
 //                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
@@ -50,7 +50,7 @@ class ViewController: UIViewController {
 //                return
 //            }
            self.present(categoryHome,animated: true)
-//        }
+        }
     }
 }
 

@@ -7,20 +7,55 @@
 //
 
 import UIKit
+import Firebase
 
 class MainPostViewController: UIViewController {
 
     @IBOutlet weak var tableViewMain: UITableView!
+    
+    var postPassed: GetTopicPost?
+    var comment = [GetComment]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableViewMain.delegate = self
         tableViewMain.dataSource = self
+
+        getComments()
     }
     
     @objc func filterCaller() {
         ReusableComponents().filteringOptions(viewController: self,tableView: tableViewMain)
+    }
+    
+    
+//    fileprivate func addComments() {
+//        firebaseRef.child("Comments").child(postPassed!.key!).childByAutoId()
+//
+//    }
+//
+    fileprivate func getComments() {
+        
+        firebaseRef.child("comments").child(postPassed!.topicKey!).observe(.value) { (snapshot) in
+            if snapshot.exists() {
+                for num in 0..<snapshot.childrenCount {
+                   let snap = snapshot.children.allObjects[Int(num)] as! DataSnapshot
+                   let snapKey = snap.value! as! String
+                    firebaseRef.child("comments").child(snapKey).observe(.value) { (snapshot) in
+                        self.comment.append(GetComment(snapshot: snapshot))
+                        self.tableViewMain.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc fileprivate func replyBtnSelected() {
+        let addComment = topic.instantiateViewController(identifier: "addPostController") as! AddPostViewController
+        addComment.topicPassed = "anything"
+        addComment.postKey = postPassed?.topicKey
+        present(addComment,animated: true)
     }
     
 }
@@ -35,22 +70,25 @@ extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
         if section == 0 {
             return 1
         }
-        return 5
+        return self.comment.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-    
         if indexPath.section == 0 {
             let cell = tableViewMain.dequeueReusableCell(withIdentifier: "mainPost") as! PostsCell
-            cell.mainTextViewPost?.font = UIFont(name: ".SFUI-Regular", size: 17)
+            cell.mainTextViewPost?.text = postPassed?.thePost
+            cell.
+            cell.replyToPost.addTarget(self, action: #selector(replyBtnSelected), for: .touchDown)
             return cell
         }
-        
-        let comments = tableViewMain.dequeueReusableCell(withIdentifier: "practiceCommentCell") as! practiceCommentCell
-        comments.commentView.text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        comments.commentView.font = UIFont(name: ".SFUI-Regular", size: 17)
+        let comments = tableViewMain.dequeueReusableCell(withIdentifier: "postComment") as! PostComment
+        if let commentText = comment[indexPath.row].theComment {
+            comments.postComment.text = commentText
+        }
+        comments.replyBtn.addTarget(self, action: #selector(replyBtnSelected), for: .touchDown)
+
        return comments
+        
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -79,19 +117,28 @@ extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
            button.tag = section
            button.setTitle("Filter", for: .normal)
            button.backgroundColor = .white
-            button.addTarget(self, action: #selector(filterCaller), for: .touchDown)
+           button.addTarget(self, action: #selector(filterCaller), for: .touchDown)
            button.titleLabel?.font = UIFont(name:"UICTFontTextStyleHeadline" , size: 17)
            button.setTitleColor(.orange, for: .normal)
            view.addSubview(button)
             
-            button.translatesAutoresizingMaskIntoConstraints = false
-            
-            button.topAnchor.constraint(equalTo: view.topAnchor, constant: 8).isActive = true
-            button.widthAnchor.constraint(equalToConstant: 70).isActive = true
-            button.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -10 ).isActive = true
-            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8).isActive = true
+           button.translatesAutoresizingMaskIntoConstraints = false
+        
+           button.topAnchor.constraint(equalTo: view.topAnchor, constant: 8).isActive = true
+           button.widthAnchor.constraint(equalToConstant: 70).isActive = true
+           button.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -10 ).isActive = true
+           button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8).isActive = true
  
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        if indexPath.section == 1 {
+           let mainPost = topic.instantiateViewController(identifier: "theMainPost") as! MainPostViewController
+           present(mainPost,animated: true)
+        }
+        
     }
      
    

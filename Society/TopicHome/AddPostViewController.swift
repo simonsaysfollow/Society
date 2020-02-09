@@ -14,13 +14,15 @@ class AddPostViewController: UIViewController,UITextViewDelegate {
     @IBOutlet weak var topicToBePostedTo: UILabel!
     @IBOutlet weak var userStory: UITextView!
     @IBOutlet weak var isCommentAllowed: UISwitch!
+    
     public var topicPassed:String?
+    public var postKey:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupToHideKeyboardOnTapOnView()
-
+    
         topicToBePostedTo.text = topicPassed
         topicToBePostedTo.font = .monospacedDigitSystemFont(ofSize: 24, weight: .medium)
         
@@ -42,7 +44,15 @@ class AddPostViewController: UIViewController,UITextViewDelegate {
     
     func addPostPerTopic() {
         let topicDB = TopicViewController().removeHashTag(topic: topicPassed!)
-        TopicPostModel(topic: topicDB, thePost: userStory.text, createdBy: Auth.auth().currentUser!.uid, allowComments: isCommentAllowed.isOn, createdByUsername: Resuable().removeEmailString(username: (Auth.auth().currentUser?.email)!),viewController: self)
+        
+        if topicPassed == "anything"{
+            
+            _ =  AddComments(postYourRespondingToKey: postKey! , topic: topicDB, theComment: userStory.text , createdByUsername: Resuable().removeEmailString(username: (Auth.auth().currentUser?.email)!), allowComments: isCommentAllowed.isOn, viewController:self)
+            
+        }else {
+            
+           _ = TopicPostModel(topic: topicDB, thePost: userStory.text, createdBy: Auth.auth().currentUser!.uid, allowComments: isCommentAllowed.isOn, createdByUsername: Resuable().removeEmailString(username: (Auth.auth().currentUser?.email)!),viewController: self)
+        }
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {

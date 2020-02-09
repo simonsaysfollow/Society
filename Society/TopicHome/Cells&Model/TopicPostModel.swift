@@ -23,7 +23,6 @@ class TopicPostModel {
     var createdBy:String?  // this should be email
     var createdByUsername:String?
     var allowComments:Bool?
-//var comments:[Comments]
 //add who trashed and who liked
     
     init(topic:String,thePost:String,createdBy:String,allowComments:Bool, createdByUsername:String,viewController:UIViewController?) {

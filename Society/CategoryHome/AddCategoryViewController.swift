@@ -50,7 +50,7 @@ class AddCategoryViewController: UIViewController, UITextViewDelegate {
 //        var topicName = categoryName.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         var topicName = categoryName.text!.components(separatedBy: .whitespacesAndNewlines).joined()
         topicName = topicName.contains("#") ? topicName.replacingOccurrences(of: "#", with: "") : "#\(topicName)"
-        TopicModel(topicLabel: topicName.capitalized, topicDescription: categoryDescription.text!,viewController:self)
+        _ = TopicModel(topicLabel: topicName.capitalized, topicDescription: categoryDescription.text!,viewController:self)
     }
     
 }

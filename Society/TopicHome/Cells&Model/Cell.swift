@@ -27,14 +27,23 @@ class PostsCell:UITableViewCell {
 }
 
 
-class practiceCommentCell:UITableViewCell {
-    @IBOutlet weak var commentView:UITextView!
+class PostComment:UITableViewCell {
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        contentView.backgroundColor = .white
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 3, left: 5, bottom: -3, right: 5))
-        contentView.addShadow()
-        
-    }
+    @IBOutlet weak var postComment:UITextView!
+    @IBOutlet weak var userLabel:UILabel!
+    @IBOutlet weak var timeOfPost:UILabel!
+    @IBOutlet weak var numberOfComments: UIButton!
+    @IBOutlet weak var goodRating: UIButton!
+    @IBOutlet weak var badRating: UIButton!
+    @IBOutlet weak var replyBtn: UIButton!
+    @IBOutlet weak var postOptions: UILabel!
+    
+    //setup post/commentView
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        contentView.backgroundColor = .white
+//        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
+//        contentView.addShadow()
+//        
+//    }
 }

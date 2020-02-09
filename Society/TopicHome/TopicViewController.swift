@@ -11,16 +11,16 @@ import Firebase
 
 class TopicViewController: UIViewController {
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
+    
     var topicPassed:String?
     
     @IBOutlet weak fileprivate var tableView: UITableView!
-    @IBOutlet weak var addPostBtn: UIBarButtonItem!
+    @IBOutlet weak fileprivate var addPostBtn: UIBarButtonItem!
     
     var getTopicPosts = [GetTopicPost]()
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-             return .darkContent
-       }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +30,8 @@ class TopicViewController: UIViewController {
         createButtonAsTitle()
         
         getPostsByTopic(topic: removeHashTag(topic: topicPassed!))
+        
+        self.tableView.tableFooterView = UIView()
         
         if navigationItem.title == "#MostLiked" {
             addPostBtn.isEnabled = false
@@ -52,6 +54,7 @@ class TopicViewController: UIViewController {
     
    @objc func reloadTableView() {
     //make sure to hit db first
+        getTopicPosts.removeAll()
         getPostsByTopic(topic: removeHashTag(topic: topicPassed!))
         tableView.reloadData()
     }
@@ -65,8 +68,7 @@ class TopicViewController: UIViewController {
         firebaseRef.child("Society").child(topic).observe(.value, with: { (snapshot) in
             let snapshot = snapshot.children.allObjects as! [DataSnapshot]
             for x in snapshot {
-                let obj = x.value as! NSDictionary
-                self.getTopicPosts.append(GetTopicPost(snapshot: obj))
+                self.getTopicPosts.append(GetTopicPost(snapshot: x))
                 self.tableView.reloadData()
                 
             }
@@ -103,11 +105,11 @@ class TopicViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "addingPostToTopic" {
-            let addPost:AddPostViewController = segue.destination as! AddPostViewController
-            addPost.topicPassed = topicPassed
-        }
+
+    @IBAction func addPostBtn(_ sender: Any) {
+       let addComment = topic.instantiateViewController(identifier: "addPostController") as! AddPostViewController
+        addComment.topicPassed = topicPassed
+        present(addComment,animated: true)
     }
     
  
@@ -120,7 +122,7 @@ extension TopicViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+//        self.getTopicPosts = getTopicPosts.reversed()
         let cell = tableView.dequeueReusableCell(withIdentifier: "postsCell", for: indexPath) as! PostsCell
         cell.postSettingsBtn.addTarget(self, action: #selector(postSettingsBtn), for: .touchDown)
         cell.thePosts?.text = getTopicPosts[indexPath.row].thePost
@@ -129,10 +131,10 @@ extension TopicViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("selected")
-        
-        let mainPost = topic.instantiateViewController(identifier: "theMainPost")
+        let mainPost = topic.instantiateViewController(identifier: "theMainPost") as! MainPostViewController
+        mainPost.postPassed = getTopicPosts[indexPath.row]
         present(mainPost,animated: true)
     }
+    
     
 }
