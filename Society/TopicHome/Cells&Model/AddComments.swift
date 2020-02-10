@@ -55,20 +55,15 @@ class AddComments {
                     print(Error!)
                     return;
                     }
-                firebaseRef.child("comments").child(self.postYourRespondingToKey!).observeSingleEvent(of: .value) { (DataSnapshot) in
-                    if DataSnapshot.exists(){
-                        let x = DataSnapshot.childrenCount
-                        _ = firebaseRef.child("comments").child(self.postYourRespondingToKey!).updateChildValues(["value\(x+1)":success.key!])
-                    }else {
-                    firebaseRef.child("comments").child(self.postYourRespondingToKey!).setValue(["value\(1)":success.key])
-                    }
-                }
-                
+//                firebaseRef.child("comments").child(self.postYourRespondingToKey!).observeSingleEvent(of: .value) { (DataSnapshot) in
+//                    if DataSnapshot.exists(){
+//                        let x = DataSnapshot.childrenCount
+//                        _ = firebaseRef.child("comments").child(self.postYourRespondingToKey!).updateChildValues(["value\(x+1)":success.key!])
+//                    }else {
+//                         firebaseRef.child("comments").child(self.postYourRespondingToKey!).setValue(["value\(1)":success.key])
+//                    }
+//                }
         })
-            
-            
-        
-        
         viewController?.dismiss(animated: true)
     }
     

@@ -13,7 +13,7 @@ let main = UIStoryboard(name: "Main", bundle: nil)
 let category = UIStoryboard(name: "Category", bundle: nil)
 let topic = UIStoryboard(name: "Topic", bundle: nil)
 var firebaseRef = Database.database().reference()
-internal var emailString:String = "@society.com"
+//internal var emailString:String = "@society.com"
 
     
 var mainHome: UINavigationController  {
@@ -37,3 +37,13 @@ var topicHome: UINavigationController  {
     
 }
 
+
+//    let value  = snapshot.value as? NSDictionary
+//                   for value in value!.allValues {
+//                       let value = value as! NSDictionary
+//                       let belongsTo = value["postyourrespondingtokey"] as! String
+//                       if belongsTo == passedObj {
+//                           self.comment.append(GetComment(snapshot: value))
+//                           self.tableViewMain.reloadData()
+//                       }
+//                   }

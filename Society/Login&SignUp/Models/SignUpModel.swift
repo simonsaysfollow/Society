@@ -34,17 +34,13 @@ class SignUpModel {
         self.username = username
         self.password = password
         self.viewController = viewController
-        appendingEmailFormat()
-    }
-    
-    // Make this reusable
-    fileprivate func appendingEmailFormat() {
-        self.username?.append(emailString)
         sendToDB()
+        
     }
-    
+        
     func sendToDB() {
-        Auth.auth().createUser(withEmail: username!, password: password!) { (success, error) in
+        let userNameAppended = Resuable().appendingEmailFormat(text: username!)
+        Auth.auth().createUser(withEmail: userNameAppended, password: password!) { (success, error) in
             if (error != nil) {
                 print(error?.localizedDescription ?? "An error has occured when attempting to register user")
                 return
@@ -52,7 +48,6 @@ class SignUpModel {
             let obj = UserInfo(userid:(success?.user.uid)! , deviceid:  UIDevice.current.name)
             firebaseRef.child("deviceID").childByAutoId().setValue(["userid":obj.userid,"deviceid": obj.deviceid])
 
-            
             print(success?.user.uid ?? "Empty userID")
             self.viewController?.dismiss(animated: true)
         }

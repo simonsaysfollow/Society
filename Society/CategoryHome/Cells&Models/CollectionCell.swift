@@ -11,5 +11,6 @@ import UIKit
 
 class CollectionCell:UICollectionViewCell {
     @IBOutlet weak var topicLabel:UILabel!
+    @IBOutlet weak var topicFlag: UIButton!
     
 }

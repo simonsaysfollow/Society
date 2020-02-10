@@ -10,21 +10,17 @@ import UIKit
 import Firebase
 
 class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
-    @IBOutlet weak var bottomCollectionView: NSLayoutConstraint!
+    @IBOutlet weak fileprivate var bottomCollectionView: NSLayoutConstraint!
     
     //MARK: IBOutlets
     @IBOutlet weak fileprivate var collectionView: UICollectionView!
-    @IBOutlet weak var rightBarItem: UIBarButtonItem!
-    @IBOutlet weak var moreTopics: UIButton!
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak fileprivate var rightBarItem: UIBarButtonItem!
+    @IBOutlet weak fileprivate var moreTopics: UIButton!
+    @IBOutlet weak fileprivate var searchBar: UISearchBar!
     
     //MARK: variables
-    
     fileprivate var wantMore = false
-    
-    let topics = ["#MostLiked","#Sex","#Romantic","#Drugs","#FML", "#SocialInjustice","#Politics","#Feminism","#LGBTQ","#BlackLivesMatter", "#PartnerStories", "#MyDumbassBoyfriend", "#SocialInjustice","#Politics","#Feminism","#LGBTQ","#BlackLivesMatter", "#PartnerStories", "#MyDumbassBoyfriend"]
-    
-    var topicData = [DataTopicModel]()
+    fileprivate var topicData = [DataTopicModel]()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
@@ -79,7 +75,6 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
      func getTopicsFromDB() {
         
         firebaseRef.child("Topics").observe(.value, with: { (snapshot) in
-            
             if snapshot.exists() {
                 if !self.topicData.isEmpty {self.topicData.removeAll()}
                 let snapshot = snapshot.value as! NSDictionary
@@ -122,7 +117,6 @@ extension CategorySelectionViewController: UICollectionViewDelegate, UICollectio
      
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "topicCollection", for: indexPath) as! CollectionCell
         
-       
         cell.topicLabel.text = topicData[indexPath.row].topicLabel
         cell.topicLabel.textColor = .orange
         cell.layer.cornerRadius = 12

@@ -21,7 +21,7 @@ class GetTopicPost {
     var trashCount:Int?
     var createdByUsername:String?
     var allowComments:Bool?
-//    lazy var comments = [Comments]()
+
     
     init(snapshot:DataSnapshot) {
        if snapshot.exists() {

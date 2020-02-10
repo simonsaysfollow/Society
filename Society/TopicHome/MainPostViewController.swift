@@ -23,44 +23,54 @@ class MainPostViewController: UIViewController {
         
         tableViewMain.delegate = self
         tableViewMain.dataSource = self
-
+        
         getComments()
     }
     
     @objc func filterCaller() {
         ReusableComponents().filteringOptions(viewController: self,tableView: tableViewMain)
     }
-    
-    
-//    fileprivate func addComments() {
-//        firebaseRef.child("Comments").child(postPassed!.key!).childByAutoId()
-//
-//    }
-//
+        
     fileprivate func getComments() {
         let passedObj = postPassed?.topicKey == nil ? postComment?.commentKey : postPassed?.topicKey
-        let passedObjCount:Int = postPassed?.topicKey == nil ? postComment!.commentCount! : 3
-        firebaseRef.child("comments").child(passedObj!).observe(.value) { (snapshot) in
+        firebaseRef.child("comments").observe(.value) { (snapshot) in
+            if !self.comment.isEmpty {self.comment.removeAll()}
             if snapshot.exists() {
-                for num in 0..<snapshot.childrenCount {
-                   let snap = snapshot.children.allObjects[Int(num)] as! DataSnapshot
-                   let snapKey = snap.value! as? String
-                    if snapKey != passedObj && snapKey != nil {
-                        firebaseRef.child("comments").child(snapKey!).observe(.value) { (snapshot) in
-                        self.comment.append(GetComment(snapshot: snapshot))
+                for obj in snapshot.children.allObjects {
+                    let snap = obj as? DataSnapshot
+                    let snapObject = snap?.value as! NSDictionary
+                    if snapObject["postyourrespondingtokey"] as? String == passedObj {
+                        self.comment.append(GetComment(snapshot: obj as! DataSnapshot, passedObj: passedObj!))
                         self.tableViewMain.reloadData()
                     }
-                }
                 }
             }
         }
     }
     
-    @objc fileprivate func replyBtnSelected() {
+    @objc fileprivate func replyBtnSelected(sender:UIButton) {
+
+        let mainPost = topic.instantiateViewController(identifier: "theMainPost") as! MainPostViewController
+        
+        mainPost.postComment =  postComment == nil ? comment[sender.tag] : postComment
+        present(mainPost, animated: true) {
+            let addComment = topic.instantiateViewController(identifier: "addPostController") as! AddPostViewController
+            addComment.topicPassed = "anything"
+            
+//            if sender.tag < self.comment.count {
+                addComment.postKey = self.comment[sender.tag].commentKey == nil ? self.postPassed?.topicKey : self.comment[sender.tag].commentKey
+//            }else {
+//                addComment.postKey = self.postComment?.commentKey == nil ? self.postPassed?.topicKey : self.postComment?.commentKey
+//            }
+            mainPost.present(addComment, animated: true)
+        }
+    }
+    
+  @objc func replyFromMainHeader() {
         let addComment = topic.instantiateViewController(identifier: "addPostController") as! AddPostViewController
         addComment.topicPassed = "anything"
-        addComment.postKey = postPassed?.topicKey
-        present(addComment,animated: true)
+        addComment.postKey = self.postComment?.commentKey == nil ? self.postPassed?.topicKey : self.postComment?.commentKey
+        self.present(addComment, animated: true)
     }
     
 }
@@ -80,18 +90,18 @@ extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
+            
             let cell = tableViewMain.dequeueReusableCell(withIdentifier: "mainPost") as! PostsCell
             cell.mainTextViewPost?.text = postPassed?.thePost == nil ? postComment?.theComment : postPassed?.thePost
-            cell.replyToPost.addTarget(self, action: #selector(replyBtnSelected), for: .touchDown)
+            cell.replyToPost.addTarget(self, action: #selector(replyFromMainHeader), for: .touchDown)
             return cell
         }
+        
         let comments = tableViewMain.dequeueReusableCell(withIdentifier: "postComment") as! PostComment
-        if let commentText = comment[indexPath.row].theComment {
-            comments.postComment.text = commentText
-        }
-        comments.replyBtn.addTarget(self, action: #selector(replyBtnSelected), for: .touchDown)
-
-       return comments
+        comments.postComment.text = comment[indexPath.row].theComment ?? ""
+        comments.replyBtn.tag = indexPath.row
+        comments.replyBtn.addTarget(self, action: #selector(replyBtnSelected(sender: )), for: .touchDown)
+        return comments
         
     }
     

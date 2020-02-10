@@ -37,18 +37,19 @@ class ViewController: UIViewController {
            password.addBottomBorder(borderWidth: 2, colorSwitch: 2)
            return
         }
-        usernameString = usernameString.trimmingCharacters(in: .whitespacesAndNewlines)
-        usernameString.append(emailString)
-        passwordString = passwordString.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        usernameString = Resuable().trimTheWhiteSpace(text: usernameString)
+        usernameString = Resuable().appendingEmailFormat(text: usernameString)
+        passwordString = Resuable().trimTheWhiteSpace(text: passwordString)
 
         Auth.auth().signIn(withEmail: usernameString, password: passwordString) { (success, error) in
-//            if (error != nil) {
-//                print(error?.localizedDescription ?? "Error signing in")
-//                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-//                self.userName.addBottomBorder(borderWidth: 2, colorSwitch: 2)
-//                self.password.addBottomBorder(borderWidth: 2, colorSwitch: 2)
-//                return
-//            }
+            if (error != nil) {
+                print(error?.localizedDescription ?? "Error signing in")
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                self.userName.addBottomBorder(borderWidth: 2, colorSwitch: 2)
+                self.password.addBottomBorder(borderWidth: 2, colorSwitch: 2)
+                return
+            }
            self.present(categoryHome,animated: true)
         }
     }

@@ -9,7 +9,23 @@
 import UIKit
 
 public class Resuable {
+    fileprivate var emailString:String = "@society.com"
+    
     func removeEmailString(username:String) -> String {
         return username.replacingOccurrences(of: emailString, with: "")
+    }
+    
+    func appendingEmailFormat(text:String) -> String  {
+        var newText = text
+        newText.append(emailString)
+        return newText
+    }
+    
+    func addHashtag(topic:String) -> String {
+        return "#\(topic)"
+    }
+    
+    func trimTheWhiteSpace(text:String) -> String {
+        return text.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }

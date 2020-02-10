@@ -61,15 +61,24 @@
                                                     <color key="textColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gd9-bm-WDy">
+                                                    <rect key="frame" x="152" y="12" width="37" height="22"/>
+                                                    <state key="normal" image="flag" catalog="system"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="gd9-bm-WDy" firstAttribute="leading" secondItem="SuC-ce-TQd" secondAttribute="leading" constant="152" id="0Uk-6n-Ruf"/>
                                                 <constraint firstAttribute="trailing" secondItem="t7X-2k-YYL" secondAttribute="trailing" constant="4" id="Epk-xF-iO9"/>
                                                 <constraint firstItem="t7X-2k-YYL" firstAttribute="leading" secondItem="SuC-ce-TQd" secondAttribute="leading" constant="4" id="Hrs-Kk-W1I"/>
+                                                <constraint firstAttribute="trailing" secondItem="gd9-bm-WDy" secondAttribute="trailing" constant="4" id="I3B-wg-Pqp"/>
+                                                <constraint firstItem="gd9-bm-WDy" firstAttribute="top" secondItem="SuC-ce-TQd" secondAttribute="top" constant="12" id="JgM-a6-kJr"/>
                                                 <constraint firstItem="t7X-2k-YYL" firstAttribute="top" secondItem="SuC-ce-TQd" secondAttribute="top" constant="38" id="PGU-HN-6NS"/>
                                                 <constraint firstAttribute="bottom" secondItem="t7X-2k-YYL" secondAttribute="bottom" constant="38" id="ayM-rS-KAg"/>
+                                                <constraint firstItem="t7X-2k-YYL" firstAttribute="top" secondItem="gd9-bm-WDy" secondAttribute="bottom" constant="4" id="niK-ig-1QH"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
+                                            <outlet property="topicFlag" destination="gd9-bm-WDy" id="Igx-gE-BYA"/>
                                             <outlet property="topicLabel" destination="t7X-2k-YYL" id="Lje-Ai-fQU"/>
                                         </connections>
                                     </collectionViewCell>
@@ -286,6 +295,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="flag" catalog="system" width="64" height="60"/>
         <image name="gear" catalog="system" width="64" height="58"/>
         <image name="plus" catalog="system" width="64" height="56"/>
     </resources>

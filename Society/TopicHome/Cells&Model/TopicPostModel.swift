@@ -40,14 +40,10 @@ class TopicPostModel {
         
     }
     
-    func addHashtag(topic:String) -> String {
-        return "#\(topic)"
-    }
-    
   fileprivate func storeTopicPostInDB() {
     
     firebaseRef.child("Society").child(topic!).childByAutoId().setValue([
-        "topic":addHashtag(topic: topic!),
+        "topic": Resuable().addHashtag(topic: topic!),
         "allowcomments":allowComments!,
         "flagged":flagged,
         "thepost":thePost!,
