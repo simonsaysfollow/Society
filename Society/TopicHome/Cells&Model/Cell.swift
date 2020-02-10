@@ -39,11 +39,11 @@ class PostComment:UITableViewCell {
     @IBOutlet weak var postOptions: UILabel!
     
     //setup post/commentView
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        contentView.backgroundColor = .white
-//        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
-//        contentView.addShadow()
-//        
-//    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.backgroundColor = .white
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
+        contentView.addShadow()
+        
+    }
 }

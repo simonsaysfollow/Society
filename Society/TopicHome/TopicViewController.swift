@@ -124,6 +124,7 @@ extension TopicViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "postsCell", for: indexPath) as! PostsCell
+        cell.postUsernameLabel.text = getTopicPosts[indexPath.row].createdByUsername
         cell.postSettingsBtn.addTarget(self, action: #selector(postSettingsBtn), for: .touchDown)
         cell.thePosts?.text = getTopicPosts[indexPath.row].thePost
         cell.selectionStyle = .none

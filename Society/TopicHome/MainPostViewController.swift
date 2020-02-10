@@ -54,14 +54,10 @@ class MainPostViewController: UIViewController {
         
         mainPost.postComment =  postComment == nil ? comment[sender.tag] : postComment
         present(mainPost, animated: true) {
+            
             let addComment = topic.instantiateViewController(identifier: "addPostController") as! AddPostViewController
             addComment.topicPassed = "anything"
-            
-//            if sender.tag < self.comment.count {
-                addComment.postKey = self.comment[sender.tag].commentKey == nil ? self.postPassed?.topicKey : self.comment[sender.tag].commentKey
-//            }else {
-//                addComment.postKey = self.postComment?.commentKey == nil ? self.postPassed?.topicKey : self.postComment?.commentKey
-//            }
+            addComment.postKey = self.comment[sender.tag].commentKey == nil ? self.postPassed?.topicKey : self.comment[sender.tag].commentKey
             mainPost.present(addComment, animated: true)
         }
     }
@@ -92,15 +88,19 @@ extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
         if indexPath.section == 0 {
             
             let cell = tableViewMain.dequeueReusableCell(withIdentifier: "mainPost") as! PostsCell
-            cell.mainTextViewPost?.text = postPassed?.thePost == nil ? postComment?.theComment : postPassed?.thePost
+            print(postComment?.createdByUsername)
+            print(postPassed?.createdByUsername)
+            cell.postUsernameLabel?.text = postComment?.createdByUsername == nil ? postPassed?.createdByUsername : postComment?.createdByUsername
+            cell.mainTextViewPost?.text = postComment?.theComment == nil ? postPassed?.thePost : postComment?.theComment
             cell.replyToPost.addTarget(self, action: #selector(replyFromMainHeader), for: .touchDown)
             return cell
         }
         
         let comments = tableViewMain.dequeueReusableCell(withIdentifier: "postComment") as! PostComment
-        comments.postComment.text = comment[indexPath.row].theComment ?? ""
-        comments.replyBtn.tag = indexPath.row
-        comments.replyBtn.addTarget(self, action: #selector(replyBtnSelected(sender: )), for: .touchDown)
+        comments.userLabel?.text = postComment?.createdByUsername ?? ""
+        comments.postComment?.text = comment[indexPath.row].theComment ?? ""
+        comments.replyBtn?.tag = indexPath.row
+        comments.replyBtn?.addTarget(self, action: #selector(replyBtnSelected(sender: )), for: .touchDown)
         return comments
         
     }

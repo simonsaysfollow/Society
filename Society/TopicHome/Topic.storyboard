@@ -346,6 +346,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="mainTextViewPost" destination="J0c-NI-w3Q" id="pu9-1w-7x2"/>
+                                            <outlet property="postUsernameLabel" destination="6rS-8J-ok1" id="Z9G-XE-cre"/>
                                             <outlet property="replyToPost" destination="QIB-Rk-HhX" id="EWS-UK-vYB"/>
                                         </connections>
                                     </tableViewCell>
@@ -366,7 +367,6 @@
                                                 </textView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Simonsays" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FRT-jX-J5A">
                                                     <rect key="frame" x="16" y="6.9999999999999982" width="110" height="26.333333333333329"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="26.329999999999998" id="HxI-U9-bwF"/>
                                                     </constraints>

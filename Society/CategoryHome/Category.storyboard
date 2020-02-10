@@ -197,27 +197,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Please add short description" translatesAutoresizingMaskIntoConstraints="NO" id="0ji-F1-PQZ">
-                                <rect key="frame" x="45" y="154.66666666666666" width="324" height="73"/>
+                                <rect key="frame" x="45" y="154.66666666666666" width="324" height="175.99999999999997"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="73" id="0dV-QX-rRr"/>
+                                    <constraint firstAttribute="height" constant="176" id="0dV-QX-rRr"/>
                                 </constraints>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9z-XT-MDJ">
-                                <rect key="frame" x="42" y="264" width="330" height="50"/>
-                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="jHC-GB-iXO"/>
-                                </constraints>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Create"/>
-                                <connections>
-                                    <action selector="addCategory:" destination="1Ks-c1-LOv" eventType="touchUpInside" id="Rn3-ec-W5F"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What topic do you want to start?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bOy-Qo-hbc">
                                 <rect key="frame" x="20" y="35" width="374" height="24"/>
                                 <constraints>
@@ -237,7 +225,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yup thats LIT! Society NEEDS this!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zmE-ye-39f">
-                                <rect key="frame" x="61" y="235.66666666666666" width="292" height="20.333333333333343"/>
+                                <rect key="frame" x="61" y="338.66666666666669" width="292" height="20.333333333333314"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.329999999999998" id="cQn-GS-jwa"/>
                                 </constraints>
@@ -255,6 +243,18 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9z-XT-MDJ">
+                                <rect key="frame" x="42" y="390.66666666666669" width="330" height="50"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="jHC-GB-iXO"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Create"/>
+                                <connections>
+                                    <action selector="addCategory:" destination="1Ks-c1-LOv" eventType="touchUpInside" id="Rn3-ec-W5F"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.25176583899999999" green="0.39075877570000001" blue="0.54124645360000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -269,7 +269,7 @@
                             <constraint firstItem="yCX-3x-K5K" firstAttribute="trailing" secondItem="bOy-Qo-hbc" secondAttribute="trailing" constant="20" id="Pgl-iV-sC9"/>
                             <constraint firstItem="yCX-3x-K5K" firstAttribute="trailing" secondItem="Tl8-sl-Ne3" secondAttribute="trailing" constant="20" id="QGk-mC-14w"/>
                             <constraint firstItem="bOy-Qo-hbc" firstAttribute="top" secondItem="yCX-3x-K5K" secondAttribute="top" constant="35" id="XDs-IV-mvI"/>
-                            <constraint firstItem="W9z-XT-MDJ" firstAttribute="top" secondItem="zmE-ye-39f" secondAttribute="bottom" constant="8" id="bHR-hQ-Zdf"/>
+                            <constraint firstItem="W9z-XT-MDJ" firstAttribute="top" secondItem="zmE-ye-39f" secondAttribute="bottom" constant="31.666666666666629" id="bHR-hQ-Zdf"/>
                             <constraint firstItem="yCX-3x-K5K" firstAttribute="trailing" secondItem="JDB-Xq-uJU" secondAttribute="trailing" constant="45" id="cwt-qh-vMC"/>
                             <constraint firstItem="zmE-ye-39f" firstAttribute="top" secondItem="0ji-F1-PQZ" secondAttribute="bottom" constant="8" id="d9k-aY-Zn3"/>
                             <constraint firstItem="Tl8-sl-Ne3" firstAttribute="leading" secondItem="yCX-3x-K5K" secondAttribute="leading" constant="20" id="jeY-YH-LkA"/>
@@ -279,7 +279,6 @@
                             <constraint firstItem="zmE-ye-39f" firstAttribute="leading" secondItem="yCX-3x-K5K" secondAttribute="leading" constant="61" id="pWF-SK-99h"/>
                             <constraint firstItem="bOy-Qo-hbc" firstAttribute="leading" secondItem="yCX-3x-K5K" secondAttribute="leading" constant="20" id="qRF-he-ix6"/>
                             <constraint firstItem="0ji-F1-PQZ" firstAttribute="leading" secondItem="yCX-3x-K5K" secondAttribute="leading" constant="45" id="xqE-Ie-645"/>
-                            <constraint firstItem="yCX-3x-K5K" firstAttribute="bottom" secondItem="W9z-XT-MDJ" secondAttribute="bottom" constant="402" id="yEu-XS-ryX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yCX-3x-K5K"/>
                     </view>
