@@ -11,16 +11,15 @@ import Firebase
 
 class TopicViewController: UIViewController {
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .darkContent
-    }
-    
     var topicPassed:String?
-    
     @IBOutlet weak fileprivate var tableView: UITableView!
     @IBOutlet weak fileprivate var addPostBtn: UIBarButtonItem!
     
     var getTopicPosts = [GetTopicPost]()
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,13 +27,13 @@ class TopicViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         createButtonAsTitle()
-        
-        getPostsByTopic(topic: removeHashTag(topic: topicPassed!))
-        
         self.tableView.tableFooterView = UIView()
-        
-        if navigationItem.title == "#MostLiked" {
+    
+        if topicPassed == "#MostLiked" {
             addPostBtn.isEnabled = false
+            getPostsByTopic(topic: Resuable().removeHashTag(topic: topicPassed!))
+        }else {
+            getPostsByTopic(topic: Resuable().removeHashTag(topic: topicPassed!))
         }
     }
     
@@ -48,14 +47,10 @@ class TopicViewController: UIViewController {
         navigationItem.titleView = button
     }
     
-    func removeHashTag(topic:String) -> String {
-        return topic.replacingOccurrences(of: "#", with: "")
-    }
     
    @objc func reloadTableView() {
-    //make sure to hit db first
         getTopicPosts.removeAll()
-        getPostsByTopic(topic: removeHashTag(topic: topicPassed!))
+        getPostsByTopic(topic: Resuable().removeHashTag(topic: topicPassed!))
         tableView.reloadData()
     }
     
@@ -66,6 +61,7 @@ class TopicViewController: UIViewController {
     //calling from categorySelectionViewController - this calls db for post specific to topic
      func getPostsByTopic(topic:String) {
         firebaseRef.child("Society").child(topic).observe(.value, with: { (snapshot) in
+            if !self.getTopicPosts.isEmpty {self.getTopicPosts.removeAll()}
             let snapshot = snapshot.children.allObjects as! [DataSnapshot]
             for x in snapshot {
                 self.getTopicPosts.append(GetTopicPost(snapshot: x))
@@ -112,6 +108,14 @@ class TopicViewController: UIViewController {
         present(addComment,animated: true)
     }
     
+    
+    @objc fileprivate func replyFromMainHeader(sender:UIButton) {
+        let addComment = topic.instantiateViewController(identifier: "addPostController") as! AddPostViewController
+        addComment.topicPassed = "anything"
+        addComment.postKey = getTopicPosts[sender.tag].topicKey
+        self.present(addComment, animated: true)
+    }
+    
  
 }
 
@@ -127,6 +131,7 @@ extension TopicViewController: UITableViewDelegate, UITableViewDataSource {
         cell.postUsernameLabel.text = getTopicPosts[indexPath.row].createdByUsername
         cell.postSettingsBtn.addTarget(self, action: #selector(postSettingsBtn), for: .touchDown)
         cell.thePosts?.text = getTopicPosts[indexPath.row].thePost
+        cell.replyToPost?.addTarget(self, action: #selector(replyFromMainHeader(sender: )), for: .touchDown)
         cell.selectionStyle = .none
         return cell
     }

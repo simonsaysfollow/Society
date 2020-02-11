@@ -34,8 +34,8 @@ class MainPostViewController: UIViewController {
     fileprivate func getComments() {
         let passedObj = postPassed?.topicKey == nil ? postComment?.commentKey : postPassed?.topicKey
         firebaseRef.child("comments").observe(.value) { (snapshot) in
-            if !self.comment.isEmpty {self.comment.removeAll()}
             if snapshot.exists() {
+                if !self.comment.isEmpty {self.comment.removeAll()}
                 for obj in snapshot.children.allObjects {
                     let snap = obj as? DataSnapshot
                     let snapObject = snap?.value as! NSDictionary
@@ -62,7 +62,9 @@ class MainPostViewController: UIViewController {
         }
     }
     
-  @objc func replyFromMainHeader() {
+    
+    //can be made resuable
+  @objc fileprivate func replyFromMainHeader() {
         let addComment = topic.instantiateViewController(identifier: "addPostController") as! AddPostViewController
         addComment.topicPassed = "anything"
         addComment.postKey = self.postComment?.commentKey == nil ? self.postPassed?.topicKey : self.postComment?.commentKey
@@ -88,8 +90,6 @@ extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
         if indexPath.section == 0 {
             
             let cell = tableViewMain.dequeueReusableCell(withIdentifier: "mainPost") as! PostsCell
-            print(postComment?.createdByUsername)
-            print(postPassed?.createdByUsername)
             cell.postUsernameLabel?.text = postComment?.createdByUsername == nil ? postPassed?.createdByUsername : postComment?.createdByUsername
             cell.mainTextViewPost?.text = postComment?.theComment == nil ? postPassed?.thePost : postComment?.theComment
             cell.replyToPost.addTarget(self, action: #selector(replyFromMainHeader), for: .touchDown)
@@ -97,9 +97,10 @@ extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
         }
         
         let comments = tableViewMain.dequeueReusableCell(withIdentifier: "postComment") as! PostComment
-        comments.userLabel?.text = postComment?.createdByUsername ?? ""
+        comments.userLabel?.text = comment[indexPath.row].createdByUsername ?? ""
         comments.postComment?.text = comment[indexPath.row].theComment ?? ""
         comments.replyBtn?.tag = indexPath.row
+        comments.selectionStyle = .none
         comments.replyBtn?.addTarget(self, action: #selector(replyBtnSelected(sender: )), for: .touchDown)
         return comments
         

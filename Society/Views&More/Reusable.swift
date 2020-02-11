@@ -25,6 +25,10 @@ public class Resuable {
         return "#\(topic)"
     }
     
+    func removeHashTag(topic:String) -> String {
+        return topic.replacingOccurrences(of: "#", with: "")
+    }
+    
     func trimTheWhiteSpace(text:String) -> String {
         return text.trimmingCharacters(in: .whitespacesAndNewlines)
     }

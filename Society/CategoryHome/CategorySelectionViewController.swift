@@ -18,6 +18,8 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak fileprivate var moreTopics: UIButton!
     @IBOutlet weak fileprivate var searchBar: UISearchBar!
     
+    @IBOutlet weak var mostLikedBtn: UIButton!
+    
     //MARK: variables
     fileprivate var wantMore = false
     fileprivate var topicData = [DataTopicModel]()
@@ -35,8 +37,15 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         searchBar.searchTextField .backgroundColor = .white
+        searchBar.searchTextField.textColor = .orange
         moreTopics.isHidden = true
         bottomCollectionView.constant  = -86
+        
+        mostLikedBtn.layer.borderColor = UIColor.orange.cgColor
+        mostLikedBtn.layer.borderWidth = 1
+        mostLikedBtn.layer.cornerRadius = 3
+        mostLikedBtn.clipsToBounds = false
+        
         
     }
     
@@ -97,7 +106,8 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
     
     
     @IBAction func grabPostFromAllTopics(_ sender: Any) {
-        passDataToTopicView(dataIndexPath: nil, dataString: "ALL")
+        passDataToTopicView(dataIndexPath: nil, dataString: "#MostLiked")
+        
     }
     
 }

@@ -26,7 +26,12 @@ class TopicModel {
     }
     
     func enteringIntoTopicCreatedDB() {
-        firebaseRef.child("Topics").childByAutoId().setValue(["topiclabel": topicLabel!, "topicdescription": topicDescription!,"createdbyuser":Auth.auth().currentUser!.uid, "flagged":false])
+//        firebaseRef.child("Topics").childByAutoId().setValue(["topiclabel": topicLabel!, "topicdescription": topicDescription!,"createdbyuser":Auth.auth().currentUser!.uid, "flagged":false])
+//        viewController?.dismiss(animated: true)
+        
+        let path = Resuable().removeHashTag(topic: topicLabel!)
+        firebaseRef.child("Topics").child(path).setValue(["topiclabel": topicLabel!, "topicdescription": topicDescription!,"createdbyuser":Auth.auth().currentUser!.uid, "flagged":false])
         viewController?.dismiss(animated: true)
+        
     }
 }

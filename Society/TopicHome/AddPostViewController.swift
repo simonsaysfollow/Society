@@ -43,7 +43,7 @@ class AddPostViewController: UIViewController,UITextViewDelegate {
     }
     
     func addPostPerTopic() {
-        let topicDB = TopicViewController().removeHashTag(topic: topicPassed!)
+        let topicDB = Resuable().removeHashTag(topic: topicPassed!)
         
         if topicPassed == "anything"{
             

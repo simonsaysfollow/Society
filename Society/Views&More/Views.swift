@@ -37,13 +37,3 @@ var topicHome: UINavigationController  {
     
 }
 
-
-//    let value  = snapshot.value as? NSDictionary
-//                   for value in value!.allValues {
-//                       let value = value as! NSDictionary
-//                       let belongsTo = value["postyourrespondingtokey"] as! String
-//                       if belongsTo == passedObj {
-//                           self.comment.append(GetComment(snapshot: value))
-//                           self.tableViewMain.reloadData()
-//                       }
-//                   }

@@ -85,24 +85,24 @@
                                 </cells>
                             </collectionView>
                             <searchBar opaque="NO" contentMode="redraw" searchBarStyle="prominent" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="thr-9I-yiM">
-                                <rect key="frame" x="0.0" y="43" width="414" height="65"/>
+                                <rect key="frame" x="0.0" y="43" width="340" height="65"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="5td-jl-CRc"/>
                                 </constraints>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="barTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="barTintColor" red="0.25176583899999999" green="0.39075877570000001" blue="0.54124645360000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gce-Wv-4Jl">
                                 <rect key="frame" x="0.0" y="108" width="414" height="50"/>
-                                <color key="backgroundColor" red="0.25176583899999999" green="0.39075877570000001" blue="0.54124645360000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="bnX-RE-DVE"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="All">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="#MostLiked">
+                                    <color key="titleColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="grabPostFromAllTopics:" destination="Gaa-Gn-Ivm" eventType="touchUpInside" id="sxb-5q-ONv"/>
@@ -120,13 +120,25 @@
                                     <action selector="addMoreTopics:" destination="Gaa-Gn-Ivm" eventType="touchUpInside" id="fq6-Lp-UYy"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qgp-4q-HWv">
+                                <rect key="frame" x="340" y="44" width="74" height="64"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="All">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Gce-Wv-4Jl" firstAttribute="top" secondItem="Qgp-4q-HWv" secondAttribute="bottom" id="0uR-ea-MTq"/>
                             <constraint firstItem="Csf-UC-KvY" firstAttribute="trailing" secondItem="1h6-Nk-tLU" secondAttribute="trailing" id="4go-l6-NMH"/>
                             <constraint firstItem="Csf-UC-KvY" firstAttribute="leading" secondItem="Gce-Wv-4Jl" secondAttribute="leading" id="4sa-Wy-mmc"/>
+                            <constraint firstItem="Qgp-4q-HWv" firstAttribute="trailing" secondItem="Rs1-bJ-pDu" secondAttribute="trailing" id="51c-qn-f5B"/>
+                            <constraint firstItem="Qgp-4q-HWv" firstAttribute="top" secondItem="Rs1-bJ-pDu" secondAttribute="top" id="6nZ-29-i9E"/>
                             <constraint firstItem="thr-9I-yiM" firstAttribute="top" secondItem="Rs1-bJ-pDu" secondAttribute="top" constant="-1" id="BaX-HW-cNB"/>
-                            <constraint firstItem="thr-9I-yiM" firstAttribute="trailing" secondItem="Rs1-bJ-pDu" secondAttribute="trailing" id="P79-gB-N1z"/>
+                            <constraint firstItem="Qgp-4q-HWv" firstAttribute="leading" secondItem="thr-9I-yiM" secondAttribute="trailing" symbolic="YES" id="NLm-mG-CWr"/>
+                            <constraint firstItem="thr-9I-yiM" firstAttribute="trailing" secondItem="Rs1-bJ-pDu" secondAttribute="trailing" constant="-74" id="P79-gB-N1z"/>
                             <constraint firstItem="1h6-Nk-tLU" firstAttribute="top" secondItem="Gce-Wv-4Jl" secondAttribute="bottom" constant="8" id="SSc-Jg-dGS"/>
                             <constraint firstItem="1h6-Nk-tLU" firstAttribute="leading" secondItem="Rs1-bJ-pDu" secondAttribute="leading" id="UiR-LT-6lj"/>
                             <constraint firstItem="Csf-UC-KvY" firstAttribute="leading" secondItem="1h6-Nk-tLU" secondAttribute="leading" id="Yri-KE-cEj"/>
@@ -155,11 +167,17 @@
                         <outlet property="bottomCollectionView" destination="uI0-p4-ilg" id="bj9-pp-GgY"/>
                         <outlet property="collectionView" destination="1h6-Nk-tLU" id="d1O-yA-Imf"/>
                         <outlet property="moreTopics" destination="Csf-UC-KvY" id="yEc-7c-z95"/>
+                        <outlet property="mostLikedBtn" destination="Gce-Wv-4Jl" id="FI0-Ak-s3C"/>
                         <outlet property="rightBarItem" destination="dp7-7d-sv1" id="5SZ-hN-syO"/>
                         <outlet property="searchBar" destination="thr-9I-yiM" id="KxP-fM-L2E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qLc-hX-bkT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="in0-YU-e2E">
+                    <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button"/>
+                </button>
             </objects>
             <point key="canvasLocation" x="71.014492753623188" y="164.67391304347828"/>
         </scene>
@@ -186,7 +204,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sDa-gG-Ax7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="82" y="875"/>
+            <point key="canvasLocation" x="71" y="1028"/>
         </scene>
         <!--Add Category View Controller-->
         <scene sceneID="4yl-Mz-h9e">

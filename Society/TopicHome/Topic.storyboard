@@ -470,7 +470,7 @@
                                             <outlet property="postOptions" destination="laI-wh-OSl" id="Xdd-1j-2w8"/>
                                             <outlet property="replyBtn" destination="TBh-pU-ruf" id="SCm-HY-lGL"/>
                                             <outlet property="timeOfPost" destination="eVp-nr-PV4" id="b7r-sv-ku8"/>
-                                            <outlet property="userLabel" destination="FRT-jX-J5A" id="sDH-A0-wuC"/>
+                                            <outlet property="userLabel" destination="FRT-jX-J5A" id="cB0-py-bXb"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
