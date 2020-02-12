@@ -16,7 +16,6 @@ class TopicModel {
     
     init(topicLabel:String,topicDescription:String,viewController:UIViewController) {
         if topicLabel.isEmpty || topicDescription.isEmpty {
-            print("No field can be empty")
             return
         }
         self.topicLabel = topicLabel
@@ -26,11 +25,9 @@ class TopicModel {
     }
     
     func enteringIntoTopicCreatedDB() {
-//        firebaseRef.child("Topics").childByAutoId().setValue(["topiclabel": topicLabel!, "topicdescription": topicDescription!,"createdbyuser":Auth.auth().currentUser!.uid, "flagged":false])
-//        viewController?.dismiss(animated: true)
         
         let path = Resuable().removeHashTag(topic: topicLabel!)
-        firebaseRef.child("Topics").child(path).setValue(["topiclabel": topicLabel!, "topicdescription": topicDescription!,"createdbyuser":Auth.auth().currentUser!.uid, "flagged":false])
+        firebaseRef.child("topics").child(path).setValue(["topiclabel": topicLabel!, "topicdescription": topicDescription!,"createdbyuser":Auth.auth().currentUser!.uid, "flagged":false])
         viewController?.dismiss(animated: true)
         
     }

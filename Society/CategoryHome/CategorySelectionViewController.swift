@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
+class CategorySelectionViewController: UIViewController, UIScrollViewDelegate, UISearchBarDelegate {
     @IBOutlet weak fileprivate var bottomCollectionView: NSLayoutConstraint!
     
     //MARK: IBOutlets
@@ -23,6 +23,7 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
     //MARK: variables
     fileprivate var wantMore = false
     fileprivate var topicData = [DataTopicModel]()
+    var newArray = [DataTopicModel]()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
@@ -31,22 +32,35 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //calls DB as soon is page is init
         getTopicsFromDB()
         
+        //Hides keyboard when view is tapped
         self.setupToHideKeyboardOnTapOnView()
+        
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
+        
+        //search bar setup
         searchBar.searchTextField .backgroundColor = .white
         searchBar.searchTextField.textColor = .orange
+        searchBar.delegate = self
+        
+        //used to hide more options button
         moreTopics.isHidden = true
         bottomCollectionView.constant  = -86
+        
+        //set up most liked button
+        mostLikedSetup()
+    }
+    
+    func mostLikedSetup() {
         
         mostLikedBtn.layer.borderColor = UIColor.orange.cgColor
         mostLikedBtn.layer.borderWidth = 1
         mostLikedBtn.layer.cornerRadius = 3
         mostLikedBtn.clipsToBounds = false
-        
-        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,7 +97,7 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
     //   Gets all the topics from the DB and consistently observes for new added topics
      func getTopicsFromDB() {
         
-        firebaseRef.child("Topics").observe(.value, with: { (snapshot) in
+        firebaseRef.child("topics").observe(.value, with: { (snapshot) in
             if snapshot.exists() {
                 if !self.topicData.isEmpty {self.topicData.removeAll()}
                 let snapshot = snapshot.value as! NSDictionary
@@ -108,6 +122,36 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate {
     @IBAction func grabPostFromAllTopics(_ sender: Any) {
         passDataToTopicView(dataIndexPath: nil, dataString: "#MostLiked")
         
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.topicData.removeAll()
+        var text = searchBar.text
+        if (text?.contains("#"))! {text?.removeFirst(0)}
+        firebaseRef.child("topics").queryOrdered(byChild: "topiclabel").queryStarting(atValue: "#\(String(text!).capitalized)").observe(.value) { (Data) in
+            for x in Data.children.allObjects {
+                let obj = x as! DataSnapshot
+                print(obj.value as! NSDictionary)
+//                if (obj.key).contains(String(searchBar.text!)) {
+                    self.topicData.append(DataTopicModel(snapshot: obj.value as! NSDictionary)!)
+                   self.collectionView.reloadData()
+//                 }
+                
+            }
+        }
+    }
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        print("yes it did")
+        self.newArray = self.topicData
+        self.collectionView.reloadData()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        print("true")
+        self.topicData = self.newArray
+        self.collectionView.reloadData()
+       
     }
     
 }

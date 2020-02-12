@@ -31,6 +31,7 @@ class TopicViewController: UIViewController {
     
         if topicPassed == "#MostLiked" {
             addPostBtn.isEnabled = false
+            //change to pull only the most liked from the db
             getPostsByTopic(topic: Resuable().removeHashTag(topic: topicPassed!))
         }else {
             getPostsByTopic(topic: Resuable().removeHashTag(topic: topicPassed!))
@@ -60,7 +61,7 @@ class TopicViewController: UIViewController {
     
     //calling from categorySelectionViewController - this calls db for post specific to topic
      func getPostsByTopic(topic:String) {
-        firebaseRef.child("Society").child(topic).observe(.value, with: { (snapshot) in
+        firebaseRef.child("topicspost").child(topic).observe(.value, with: { (snapshot) in
             if !self.getTopicPosts.isEmpty {self.getTopicPosts.removeAll()}
             let snapshot = snapshot.children.allObjects as! [DataSnapshot]
             for x in snapshot {

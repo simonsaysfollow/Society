@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 
 class DataTopicModel {
+   
     var topicLabel:String?
     var topicDescription:String?
     var flagged:Bool?
