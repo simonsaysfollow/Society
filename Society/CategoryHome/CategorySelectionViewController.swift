@@ -18,7 +18,11 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate, U
     @IBOutlet weak fileprivate var moreTopics: UIButton!
     @IBOutlet weak fileprivate var searchBar: UISearchBar!
     
+    @IBOutlet weak var showAllBtn: UIButton!
     @IBOutlet weak var mostLikedBtn: UIButton!
+    
+    @IBOutlet weak var searchBarTrailing: NSLayoutConstraint!
+    
     
     //MARK: variables
     fileprivate var wantMore = false
@@ -132,7 +136,6 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate, U
         firebaseRef.child("topics").queryOrdered(byChild: "topiclabel").queryStarting(atValue: "#\(String(text!).capitalized)").observe(.value) { (Data) in
             for x in Data.children.allObjects {
                 let obj = x as! DataSnapshot
-                print(obj.value as! NSDictionary)
                 if (obj.key).contains(String(searchBar.text!)) {
                     self.topicData.append(DataTopicModel(snapshot: obj.value as! NSDictionary)!)
                    self.collectionView.reloadData()
@@ -148,6 +151,8 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate, U
     }
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.searchBarTrailing.constant = -15
+        self.showAllBtn.setTitle("", for: .normal)
         self.newArray = self.topicData
         self.collectionView.reloadData()
     }
@@ -155,6 +160,11 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate, U
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         if searchBar.text!.count == 0 {
             self.topicData = self.newArray
+            
+        }
+        DispatchQueue.main.async {
+            self.searchBarTrailing.constant = -74
+            self.showAllBtn.setTitle("All", for: .normal)
             self.collectionView.reloadData()
         }
        

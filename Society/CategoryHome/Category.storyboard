@@ -170,6 +170,8 @@
                         <outlet property="mostLikedBtn" destination="Gce-Wv-4Jl" id="FI0-Ak-s3C"/>
                         <outlet property="rightBarItem" destination="dp7-7d-sv1" id="5SZ-hN-syO"/>
                         <outlet property="searchBar" destination="thr-9I-yiM" id="KxP-fM-L2E"/>
+                        <outlet property="searchBarTrailing" destination="P79-gB-N1z" id="4AH-Hs-3rG"/>
+                        <outlet property="showAllBtn" destination="Qgp-4q-HWv" id="SxI-aB-p1m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qLc-hX-bkT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
