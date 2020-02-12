@@ -125,6 +125,7 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate, U
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+       
         self.topicData.removeAll()
         var text = searchBar.text
         if (text?.contains("#"))! {text?.removeFirst(0)}
@@ -132,25 +133,30 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate, U
             for x in Data.children.allObjects {
                 let obj = x as! DataSnapshot
                 print(obj.value as! NSDictionary)
-//                if (obj.key).contains(String(searchBar.text!)) {
+                if (obj.key).contains(String(searchBar.text!)) {
                     self.topicData.append(DataTopicModel(snapshot: obj.value as! NSDictionary)!)
                    self.collectionView.reloadData()
-//                 }
+                 }
                 
             }
         }
+        
+        if searchBar.text!.count < 1 { 
+           self.topicData = self.newArray
+           self.collectionView.reloadData()
+       }
     }
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        print("yes it did")
         self.newArray = self.topicData
         self.collectionView.reloadData()
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        print("true")
-        self.topicData = self.newArray
-        self.collectionView.reloadData()
+        if searchBar.text!.count == 0 {
+            self.topicData = self.newArray
+            self.collectionView.reloadData()
+        }
        
     }
     
