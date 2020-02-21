@@ -27,6 +27,8 @@ class PostsCell:UITableViewCell {
 }
 
 
+
+
 class PostComment:UITableViewCell {
     
     @IBOutlet weak var postComment:UITextView!
@@ -37,6 +39,9 @@ class PostComment:UITableViewCell {
     @IBOutlet weak var badRating: UIButton!
     @IBOutlet weak var replyBtn: UIButton!
     @IBOutlet weak var postOptions: UILabel!
+    
+
+    
     
     //setup post/commentView
     override func layoutSubviews() {
