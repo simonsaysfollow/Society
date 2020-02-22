@@ -22,6 +22,7 @@ class GetComment {
     var trashCount:Int?
     var createdByUsername:String?
     var allowComments:Bool?
+    var topic:String?
     var usersthatliked:String?
     
     init(snapshot: DataSnapshot) {
@@ -37,6 +38,7 @@ class GetComment {
         self.likedCount = obj["likedcount"] as? Int
         self.trashCount = obj["trashcount"] as? Int
         self.createdByUsername = obj["createdbyusername"] as? String
+        self.topic = obj["topic"] as? String
         let c = obj["usersthatliked"] as? NSDictionary
         self.usersthatliked = c?[currentUserID as Any] as? String
         

@@ -16,6 +16,7 @@ class AddPostViewController: UIViewController,UITextViewDelegate {
     @IBOutlet weak var isCommentAllowed: UISwitch!
     
     public var topicPassed:String?
+    
     public var postKey:String?
     
     override func viewDidLoad() {
@@ -45,7 +46,7 @@ class AddPostViewController: UIViewController,UITextViewDelegate {
     func addPostPerTopic() {
         let topicDB = Resuable().removeHashTag(topic: topicPassed!)
         
-        if topicPassed == "anything"{
+        if topicPassed != nil {
             
             _ =  AddComments(postYourRespondingToKey: postKey! , topic: topicDB, theComment: userStory.text , createdByUsername: Resuable().removeEmailString(username: (Auth.auth().currentUser?.email)!), allowComments: isCommentAllowed.isOn, viewController:self)
             

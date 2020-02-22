@@ -24,7 +24,9 @@ class MainPostViewController: UIViewController {
         tableViewMain.delegate = self
         tableViewMain.dataSource = self
         
-        getComments()
+        self.getComments()
+        self.getPassedFromDB()
+        
     }
     
     @objc func filterCaller() {
@@ -49,13 +51,31 @@ class MainPostViewController: UIViewController {
         }
     }
     
+    fileprivate func getPassedFromDB() {
+       
+        if postComment == nil {
+            let topic = Resuable().removeHashTag(topic: postPassed!.topic!)
+            firebaseRef.child("topicspost").child(topic).child(postPassed!.topicKey!).observe(.value) { (snapShot) in
+                self.postPassed = GetTopicPost(snapshot: snapShot)
+                self.tableViewMain.reloadData()
+            }
+        }else {
+            firebaseRef.child("comments").child(postComment!.commentKey!).observe(.value) { (snapShot) in
+                self.postComment = GetComment(snapshot: snapShot)
+                self.tableViewMain.reloadData()
+            }
+        
+        }
+
+    }
+    
     @objc fileprivate func replyBtnSelected(sender:UIButton) {
         let mainPost = topic.instantiateViewController(identifier: "theMainPost") as! MainPostViewController
         mainPost.postComment =  postComment == nil ? comment[sender.tag] : postComment
         present(mainPost, animated: true) {
             
             let addComment = topic.instantiateViewController(identifier: "addPostController") as! AddPostViewController
-            addComment.topicPassed = "anything"
+            addComment.topicPassed = self.comment[sender.tag].topic == nil ? self.postPassed?.topic : self.comment[sender.tag].topic
             addComment.postKey = self.comment[sender.tag].commentKey == nil ? self.postPassed?.topicKey : self.comment[sender.tag].commentKey
             mainPost.present(addComment, animated: true)
         }
@@ -65,7 +85,7 @@ class MainPostViewController: UIViewController {
     //can be made resuable
   @objc fileprivate func replyFromMainHeader() {
         let addComment = topic.instantiateViewController(identifier: "addPostController") as! AddPostViewController
-        addComment.topicPassed = "anything"
+        addComment.topicPassed = self.postComment?.topic == nil ? self.postPassed?.topic : self.postComment?.topic
         addComment.postKey = self.postComment?.commentKey == nil ? self.postPassed?.topicKey : self.postComment?.commentKey
         self.present(addComment, animated: true)
     }
@@ -73,10 +93,8 @@ class MainPostViewController: UIViewController {
     //use this to update likes
    @objc func thisIsLiked(sender:UIButton) {
         
-    firebaseRef.child("comments").child(sender.accessibilityLabel!).observeSingleEvent(of: .value) { (snapshot) in
-                
-            _ = Liked(snapshot: snapshot, key: sender.accessibilityLabel!) // add key to check if it is liked or not liked
-            
+        firebaseRef.child("comments").child(sender.accessibilityLabel!).observeSingleEvent(of: .value) { (snapshot) in
+            _ = Liked(snapshot: snapshot, key: sender.accessibilityLabel!, path: "comments") // add key to check if it is liked or not liked
                 self.tableViewMain.reloadData()
             
         }
@@ -85,11 +103,47 @@ class MainPostViewController: UIViewController {
     @objc func thisIsTrash(sender:UIButton) {
         
         firebaseRef.child("comments").child(sender.accessibilityLabel!).observeSingleEvent(of:.value) { (snapshot) in
-        
-            _ = Disliked(snapshot: snapshot, key: sender.accessibilityLabel!) // add key to check if it is liked or not liked
+            _ = Disliked(snapshot: snapshot, key: sender.accessibilityLabel!, path: "comments") // add key to check if it is liked or not liked
                self.tableViewMain.reloadData()
+        }
+    }
+    
+    @objc func headerIsLiked() {
+    
+        if postComment?.commentKey != nil {
+            print("i am entering this block")
+            firebaseRef.child("comments").child(postComment!.commentKey!).observeSingleEvent(of: .value) { (snapshot) in
+                _ = Liked(snapshot: snapshot, key: self.postComment!.commentKey! , path: "comments")
+                self.getPassedFromDB()
+                }
+        }else {
             
+            let noHashTopic = Resuable().removeHashTag(topic: postPassed!.topic!)
+            firebaseRef.child("topicspost").child(noHashTopic).child(postPassed!.topicKey!).observeSingleEvent(of: .value) { (snapshot) in
+            _ = Liked(snapshot: snapshot, key: self.postPassed!.topicKey! , path: "topicspost")
+                self.getPassedFromDB()
+                
+                }
+            }
+           
+       }
+    
+    @objc func headerIsTrash() {
+        
+        if postComment?.commentKey != nil {
             
+            firebaseRef.child("comments").child(postComment!.commentKey!).observeSingleEvent(of:.value) { (snapshot) in
+                _ = Disliked(snapshot: snapshot, key: self.postComment!.commentKey!, path: "comments")
+                self.getPassedFromDB()
+            }
+        }else {
+            
+            let noHashTopic = Resuable().removeHashTag(topic:postPassed!.topic!)
+            firebaseRef.child("topicspost").child(noHashTopic).child(postPassed!.topicKey!).observeSingleEvent(of: .value) { (snapshot) in
+               _ = Disliked(snapshot: snapshot, key: self.postPassed!.topicKey! , path: "topicspost")
+                self.getPassedFromDB()
+  
+            }
         }
     }
     
@@ -119,9 +173,18 @@ extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
             let cell = tableViewMain.dequeueReusableCell(withIdentifier: "postComment") as! PostComment
             cell.userLabel?.text = postComment?.createdByUsername == nil ? postPassed?.createdByUsername : postComment?.createdByUsername
             cell.postComment?.text = postComment?.theComment == nil ? postPassed?.thePost : postComment?.theComment
-            cell.replyBtn.addTarget(self, action: #selector(replyFromMainHeader), for: .touchDown)
+            
+            cell.replyBtn?.addTarget(self, action: #selector(replyFromMainHeader), for: .touchDown)
             cell.replyBtn?.isEnabled = (postComment?.theComment == nil ? postPassed!.allowComments : postComment!.allowComments)!
             
+            cell.goodRating?.addTarget(self, action: #selector(headerIsLiked), for: .touchDown)
+            cell.goodRating?.tintColor = postComment?.usersthatliked == nil ? postPassed?.usersthatliked == "liked" ? .red : .blue : postComment?.usersthatliked == "liked" ? .red : .blue
+            
+        
+            cell.badRating?.addTarget(self, action: #selector(headerIsTrash), for: .touchDown)
+            cell.badRating?.tintColor = postComment?.usersthatliked == nil ? postPassed?.usersthatliked == "disliked" ? .red : .blue : postComment?.usersthatliked == "disliked" ? .red : .blue
+            
+        
             cell.selectionStyle = .none
             return cell
         }
@@ -162,26 +225,26 @@ extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
         if section == 1 {
             return 50 
         }
-//        return 20
         return 0
     }
     
 
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         
+        let button = UIButton()
+        
 //        if section == 0 {
-//            view.tintColor = .orange
-//            let header = view as! UITableViewHeaderFooterView
-//            header.textLabel?.textColor = UIColor.white
-//            view.sendSubviewToBack(view)
+//           view.tintColor = .orange
+//           let header1 = view as! UITableViewHeaderFooterView
+//           header1.textLabel?.textColor = UIColor.white
+//            view.sendSubviewToBack(button)
 //        }
         
         if section == 1 {
             view.tintColor = .orange
             let header = view as! UITableViewHeaderFooterView
             header.textLabel?.textColor = UIColor.white
-            
-           let button = UIButton()
+        
            button.tag = section
            button.setTitle("Filter", for: .normal)
            button.backgroundColor = .white
@@ -205,7 +268,6 @@ extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
 
         if indexPath.section == 1 {
            let mainPost = topic.instantiateViewController(identifier: "theMainPost") as! MainPostViewController
-
             mainPost.postComment = comment[indexPath.row]
            present(mainPost,animated: true)
         }

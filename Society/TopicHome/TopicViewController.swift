@@ -138,6 +138,7 @@ extension TopicViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let mainPost = topic.instantiateViewController(identifier: "theMainPost") as! MainPostViewController
         mainPost.postPassed = getTopicPosts[indexPath.row]
         present(mainPost,animated: true)

@@ -21,7 +21,7 @@ class GetTopicPost {
     var trashCount:Int?
     var createdByUsername:String?
     var allowComments:Bool?
-
+    var usersthatliked:String?
     
     init(snapshot:DataSnapshot) {
        if snapshot.exists() {
@@ -39,6 +39,9 @@ class GetTopicPost {
         self.createdByUsername =  obj["createdbyusername"] as? String
         self.allowComments =  obj["allowcomments"] as? Bool
         self.timeOfPost = (obj["timeofpost"] as? TimeInterval)!
+        
+        let c = obj["usersthatliked"] as? NSDictionary
+        self.usersthatliked = c?[currentUserID as Any] as? String
 
         }
     }
