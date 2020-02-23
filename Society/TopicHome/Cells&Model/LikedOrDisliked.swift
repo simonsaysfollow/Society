@@ -47,26 +47,35 @@ class Liked {
             let getUserFeelings = obj?["usersthatliked"] as? NSDictionary
             
             
-            if getUserFeelings?[currentUserID!] as? String == "" || getUserFeelings == nil {
-               var count = obj!["likedcount"] as? Int
-                count = count! + 1
-                firebaseRef.child(self.path!).child(self.key!).updateChildValues(["likedcount":count!])
-            }
-            
-            
-            if getUserFeelings?[currentUserID!] as? String == "disliked" {
+            if getUserFeelings?[currentUserID!] as? String == "liked" {
                 
                 var count = obj!["likedcount"] as? Int
-                count = count! + 1
+                count = count! - 1
                 firebaseRef.child(self.path!).child(self.key!).updateChildValues(["likedcount":count!])
                 
-                var countDec = obj!["trashcount"] as! Int
-                countDec = countDec - 1
-                firebaseRef.child(self.path!).child(self.key!).updateChildValues(["trashcount":countDec])
+                firebaseRef.child(self.path!).child(self.key!).updateChildValues(["usersthatliked":[Auth.auth().currentUser?.uid:""]])
+                   
+            }else {
+            
+                if getUserFeelings?[currentUserID!] as? String == "" || getUserFeelings == nil {
+                   var count = obj!["likedcount"] as? Int
+                    count = count! + 1
+                    firebaseRef.child(self.path!).child(self.key!).updateChildValues(["likedcount":count!])
+                }
                 
-
+                
+                if getUserFeelings?[currentUserID!] as? String == "disliked" {
+                    
+                    var count = obj!["likedcount"] as? Int
+                    count = count! + 1
+                    firebaseRef.child(self.path!).child(self.key!).updateChildValues(["likedcount":count!])
+                    
+                    var countDec = obj!["trashcount"] as! Int
+                    countDec = countDec - 1
+                    firebaseRef.child(self.path!).child(self.key!).updateChildValues(["trashcount":countDec])
+                }
+             firebaseRef.child(self.path!).child(self.key!).updateChildValues(["usersthatliked":[Auth.auth().currentUser?.uid:"liked"]])
             }
-            firebaseRef.child(self.path!).child(self.key!).updateChildValues(["usersthatliked":[Auth.auth().currentUser?.uid:"liked"]])
         }
     }
     
@@ -76,7 +85,18 @@ class Liked {
              let obj = snapShot.value as? NSDictionary
         
                 let getUserFeelings = obj?["usersthatliked"] as? NSDictionary
+            
                 
+            if getUserFeelings?[currentUserID!] as? String == "liked" {
+                
+                var count = obj!["likedcount"] as? Int
+                count = count! - 1
+                firebaseRef.child(self.path!).child(self.key!).updateChildValues(["likedcount":count!])
+                
+                firebaseRef.child(self.path!).child(self.topic!).child(self.key!).updateChildValues(["usersthatliked":[Auth.auth().currentUser?.uid:""]])
+                   
+            }else {
+            
                 if getUserFeelings?[currentUserID!] as? String == "" || getUserFeelings == nil {
                    var count = obj?["likedcount"] as? Int
                     count = count! + 1
@@ -93,12 +113,11 @@ class Liked {
                     var countDec = obj!["trashcount"] as! Int
                     countDec = countDec - 1
                     firebaseRef.child(self.path!).child(self.topic!).child(self.key!).updateChildValues(["trashcount":countDec])
-                    
-
+    
                 }
-                firebaseRef.child(self.path!).child(self.topic!).child(self.key!).updateChildValues(["usersthatliked":[Auth.auth().currentUser?.uid:"liked"]])
+              firebaseRef.child(self.path!).child(self.topic!).child(self.key!).updateChildValues(["usersthatliked":[Auth.auth().currentUser?.uid:"liked"]])
             }
-        
+        }
     }
 }
 
@@ -138,27 +157,39 @@ class Disliked {
             let getUserFeelings = obj?["usersthatliked"] as? NSDictionary
             
             
-            if getUserFeelings?[currentUserID!] as? String == "" || getUserFeelings == nil {
+            if getUserFeelings?[currentUserID!] as? String == "disliked" {
                 
-                var count = obj!["trashcount"] as! Int
-                count = count + 1
-                firebaseRef.child(self.path!).child(self.key!).updateChildValues(["trashcount":count])
+                var count = obj!["trashcount"] as? Int
+                count = count! - 1
+                firebaseRef.child(self.path!).child(self.key!).updateChildValues(["trashcount":count!])
                 
-            }
-            
-            if getUserFeelings?[currentUserID!] as? String == "liked" {
-                
-                var count = obj!["trashcount"] as! Int
-                count = count + 1
-                firebaseRef.child(self.path!).child(self.key!).updateChildValues(["trashcount":count])
-                
-                var countDec = obj!["likedcount"] as? Int
-                countDec = countDec! - 1
-                firebaseRef.child(self.path!).child(self.key!).updateChildValues(["likedcount":countDec!])
-                
+                firebaseRef.child(self.path!).child(self.key!).updateChildValues(["usersthatliked":[Auth.auth().currentUser?.uid:""]])
+                   
+            }else {
+           
+        
+                if getUserFeelings?[currentUserID!] as? String == "" || getUserFeelings == nil {
                     
+                    var count = obj!["trashcount"] as! Int
+                    count = count + 1
+                    firebaseRef.child(self.path!).child(self.key!).updateChildValues(["trashcount":count])
+                    
+                }
+                
+                if getUserFeelings?[currentUserID!] as? String == "liked" {
+                    
+                    var count = obj!["trashcount"] as! Int
+                    count = count + 1
+                    firebaseRef.child(self.path!).child(self.key!).updateChildValues(["trashcount":count])
+                    
+                    var countDec = obj!["likedcount"] as? Int
+                    countDec = countDec! - 1
+                    firebaseRef.child(self.path!).child(self.key!).updateChildValues(["likedcount":countDec!])
+                    
+                        
+                }
+                firebaseRef.child(self.path!).child(self.key!).updateChildValues(["usersthatliked":[Auth.auth().currentUser?.uid:"disliked"]])
             }
-            firebaseRef.child(self.path!).child(self.key!).updateChildValues(["usersthatliked":[Auth.auth().currentUser?.uid:"disliked"]])
             
         }
         
@@ -170,28 +201,40 @@ class Disliked {
 
             let getUserFeelings = obj?["usersthatliked"] as? NSDictionary
             
-            if getUserFeelings?[currentUserID!] as? String == "" || getUserFeelings == nil {
-                
-                var count = obj?["trashcount"] as! Int
-                count = count + 1
-                firebaseRef.child(self.path!).child(self.topic!).child(self.key!).updateChildValues(["trashcount":count])
-                
-            }
             
-            if getUserFeelings?[currentUserID!] as? String == "liked" {
+            if getUserFeelings?[currentUserID!] as? String == "disliked" {
                 
-                var count = obj!["trashcount"] as! Int
-                count = count + 1
-                firebaseRef.child(self.path!).child(self.topic!).child(self.key!).updateChildValues(["trashcount":count])
+                var count = obj!["trashcount"] as? Int
+                count = count! - 1
+                firebaseRef.child(self.path!).child(self.key!).updateChildValues(["trashcount":count!])
                 
-                var countDec = obj!["likedcount"] as? Int
-                countDec = countDec! - 1
-                firebaseRef.child(self.path!).child(self.topic!).child(self.key!).updateChildValues(["likedcount":countDec!])
-                
+                firebaseRef.child(self.path!).child(self.topic!).child(self.key!).updateChildValues(["usersthatliked":[Auth.auth().currentUser?.uid:""]])
+                   
+            }else {
+            
+            
+            
+                if getUserFeelings?[currentUserID!] as? String == "" || getUserFeelings == nil {
                     
+                    var count = obj?["trashcount"] as! Int
+                    count = count + 1
+                    firebaseRef.child(self.path!).child(self.topic!).child(self.key!).updateChildValues(["trashcount":count])
+                }
+                
+                
+                if getUserFeelings?[currentUserID!] as? String == "liked" {
+                    
+                    var count = obj!["trashcount"] as! Int
+                    count = count + 1
+                    firebaseRef.child(self.path!).child(self.topic!).child(self.key!).updateChildValues(["trashcount":count])
+                    
+                    var countDec = obj!["likedcount"] as? Int
+                    countDec = countDec! - 1
+                    firebaseRef.child(self.path!).child(self.topic!).child(self.key!).updateChildValues(["likedcount":countDec!])
+                }
+                
+                firebaseRef.child(self.path!).child(self.topic!).child(self.key!).updateChildValues(["usersthatliked":[Auth.auth().currentUser?.uid:"disliked"]])
             }
-            firebaseRef.child(self.path!).child(self.topic!).child(self.key!).updateChildValues(["usersthatliked":[Auth.auth().currentUser?.uid:"disliked"]])
-            
         }
                
     }

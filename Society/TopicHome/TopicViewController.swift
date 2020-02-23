@@ -11,11 +11,11 @@ import Firebase
 
 class TopicViewController: UIViewController {
     
-    var topicPassed:String?
+    public var topicPassed:String?
     @IBOutlet weak fileprivate var tableView: UITableView!
     @IBOutlet weak fileprivate var addPostBtn: UIBarButtonItem!
     
-    var getTopicPosts = [GetTopicPost]()
+    fileprivate var getTopicPosts = [GetTopicPost]()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
@@ -91,7 +91,6 @@ class TopicViewController: UIViewController {
                 for topics in snap!.allKeys {
                     let topics =  topics as? String
                     firebaseRef.child("topicspost").child(topics!).queryOrdered(byChild: "likedcount").queryStarting(atValue: 5, childKey: "likedcount").queryLimited(toLast: 50).observe(.value) { (snaps) in
-            
                         let snapshot = snaps.children.allObjects as! [DataSnapshot]
                         for obj in snapshot {
                             self.getTopicPosts.append(GetTopicPost(snapshot: obj))
