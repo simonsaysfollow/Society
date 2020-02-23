@@ -23,6 +23,9 @@ class ViewController: UIViewController {
         password.attributedPlaceholder = "Password".textPlaceHolder()
         password.addBottomBorder(borderWidth: 2, colorSwitch: nil)
         
+        userName.text = "test"
+        password.text = "test1234"
+        
         self.setupToHideKeyboardOnTapOnView()
     }
     

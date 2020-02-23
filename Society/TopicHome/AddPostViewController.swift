@@ -16,7 +16,7 @@ class AddPostViewController: UIViewController,UITextViewDelegate {
     @IBOutlet weak var isCommentAllowed: UISwitch!
     
     public var topicPassed:String?
-    
+    public var topicPassedFromCategory:String?
     public var postKey:String?
     
     override func viewDidLoad() {
@@ -25,6 +25,11 @@ class AddPostViewController: UIViewController,UITextViewDelegate {
         self.setupToHideKeyboardOnTapOnView()
     
         topicToBePostedTo.text = topicPassed
+        
+        if topicPassedFromCategory != nil {
+          topicToBePostedTo.text = topicPassedFromCategory
+        }
+        
         topicToBePostedTo.font = .monospacedDigitSystemFont(ofSize: 24, weight: .medium)
         
         userStory.delegate = self
@@ -44,15 +49,21 @@ class AddPostViewController: UIViewController,UITextViewDelegate {
     }
     
     func addPostPerTopic() {
-        let topicDB = Resuable().removeHashTag(topic: topicPassed!)
-        
-        if topicPassed != nil {
-            
-            _ =  AddComments(postYourRespondingToKey: postKey! , topic: topicDB, theComment: userStory.text , createdByUsername: Resuable().removeEmailString(username: (Auth.auth().currentUser?.email)!), allowComments: isCommentAllowed.isOn, viewController:self)
+        var topicDB:String?
+        if topicPassedFromCategory != nil {
+            topicDB = Resuable().removeHashTag(topic: topicPassedFromCategory!)
+        }else {
+         topicDB = Resuable().removeHashTag(topic: topicPassed!)
+        }
+       
+        if topicPassedFromCategory != nil {
+    
+            _ = TopicPostModel(topic: topicDB!, thePost: userStory.text, createdBy: Auth.auth().currentUser!.uid, allowComments: isCommentAllowed.isOn, createdByUsername: Resuable().removeEmailString(username: (Auth.auth().currentUser?.email)!),viewController: self)
             
         }else {
+         
+             _ =  AddComments(postYourRespondingToKey: postKey! , topic: topicDB, theComment: userStory.text , createdByUsername: Resuable().removeEmailString(username: (Auth.auth().currentUser?.email)!), allowComments: isCommentAllowed.isOn, viewController:self)
             
-           _ = TopicPostModel(topic: topicDB, thePost: userStory.text, createdBy: Auth.auth().currentUser!.uid, allowComments: isCommentAllowed.isOn, createdByUsername: Resuable().removeEmailString(username: (Auth.auth().currentUser?.email)!),viewController: self)
         }
     }
     

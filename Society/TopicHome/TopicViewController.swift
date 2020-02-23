@@ -29,13 +29,11 @@ class TopicViewController: UIViewController {
         createButtonAsTitle()
         self.tableView.tableFooterView = UIView()
     
-        if topicPassed == "#MostLiked" {
+        if topicPassed == "#MostLiked" || topicPassed == "#All" {
             addPostBtn.isEnabled = false
-            //change to pull only the most liked from the db
-            getPostsByTopic(topic: Resuable().removeHashTag(topic: topicPassed!))
-        }else {
-            getPostsByTopic(topic: Resuable().removeHashTag(topic: topicPassed!))
         }
+        
+        getPostsByTopic(topic: Resuable().removeHashTag(topic: topicPassed!))
     }
     
     
@@ -61,15 +59,65 @@ class TopicViewController: UIViewController {
     
     //calling from categorySelectionViewController - this calls db for post specific to topic
      func getPostsByTopic(topic:String) {
-        firebaseRef.child("topicspost").child(topic).observe(.value, with: { (snapshot) in
-            if !self.getTopicPosts.isEmpty {self.getTopicPosts.removeAll()}
-            let snapshot = snapshot.children.allObjects as! [DataSnapshot]
-            for x in snapshot {
-                self.getTopicPosts.append(GetTopicPost(snapshot: x))
-                self.tableView.reloadData()
+        
+        if topic == "All" {
+            
+            firebaseRef.child("topicspost").observe(.value) { (snapshot) in
+                if !self.getTopicPosts.isEmpty {self.getTopicPosts.removeAll()}
+                let snap = snapshot.value as? NSDictionary
+                for topics in snap!.allKeys {
+                    let topics =  topics as? String
+                    firebaseRef.child("topicspost").child(topics!).queryLimited(toLast: 50).observe(.value) { (snaps) in
+                        let snapshot = snaps.children.allObjects as! [DataSnapshot]
+                        for obj in snapshot {
+                            self.getTopicPosts.append(GetTopicPost(snapshot: obj))
+                            self.getTopicPosts = self.getTopicPosts.shuffled()
+                            self.tableView.reloadData()
+                            
+                        }
+                        
+                    }
+                }
                 
             }
-        })
+            
+        }
+        
+        if topic == "MostLiked" {
+            
+            firebaseRef.child("topicspost").observe(.value) { (snapshot) in
+                if !self.getTopicPosts.isEmpty {self.getTopicPosts.removeAll()}
+                let snap = snapshot.value as? NSDictionary
+                for topics in snap!.allKeys {
+                    let topics =  topics as? String
+                    firebaseRef.child("topicspost").child(topics!).queryOrdered(byChild: "likedcount").queryStarting(atValue: 5, childKey: "likedcount").queryLimited(toLast: 50).observe(.value) { (snaps) in
+            
+                        let snapshot = snaps.children.allObjects as! [DataSnapshot]
+                        for obj in snapshot {
+                            self.getTopicPosts.append(GetTopicPost(snapshot: obj))
+                            self.getTopicPosts = self.getTopicPosts.shuffled()
+                            self.tableView.reloadData()
+                            
+                        }
+                        
+                    }
+                }
+                
+            }
+            
+        }
+        
+        if topic != "MostLiked" || topic != "All" {
+            firebaseRef.child("topicspost").child(topic).observe(.value, with: { (snapshot) in
+                if !self.getTopicPosts.isEmpty {self.getTopicPosts.removeAll()}
+                let snapshot = snapshot.children.allObjects as! [DataSnapshot]
+                for obj in snapshot {
+                    self.getTopicPosts.append(GetTopicPost(snapshot: obj))
+                    self.tableView.reloadData()
+                    
+                }
+            })
+        }
     }
     
    
@@ -104,15 +152,15 @@ class TopicViewController: UIViewController {
     
 
     @IBAction func addPostBtn(_ sender: Any) {
-       let addComment = topic.instantiateViewController(identifier: "addPostController") as! AddPostViewController
-        addComment.topicPassed = topicPassed
-        present(addComment,animated: true)
+       let addPost = topic.instantiateViewController(identifier: "addPostController") as! AddPostViewController
+        addPost.topicPassedFromCategory = topicPassed
+        present(addPost,animated: true)
     }
     
     
     @objc fileprivate func replyFromMainHeader(sender:UIButton) {
         let addComment = topic.instantiateViewController(identifier: "addPostController") as! AddPostViewController
-        addComment.topicPassed = "anything"
+        addComment.topicPassed = getTopicPosts[sender.tag].topic
         addComment.postKey = getTopicPosts[sender.tag].topicKey
         self.present(addComment, animated: true)
     }
@@ -132,6 +180,7 @@ extension TopicViewController: UITableViewDelegate, UITableViewDataSource {
         cell.postUsernameLabel.text = getTopicPosts[indexPath.row].createdByUsername
         cell.postSettingsBtn.addTarget(self, action: #selector(postSettingsBtn), for: .touchDown)
         cell.thePosts?.text = getTopicPosts[indexPath.row].thePost
+        cell.replyToPost.tag = indexPath.row
         cell.replyToPost?.addTarget(self, action: #selector(replyFromMainHeader(sender: )), for: .touchDown)
         cell.selectionStyle = .none
         return cell

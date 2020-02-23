@@ -124,9 +124,14 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate, U
     
     
     @IBAction func grabPostFromAllTopics(_ sender: Any) {
-        passDataToTopicView(dataIndexPath: nil, dataString: "#MostLiked")
+        passDataToTopicView(dataIndexPath: nil, dataString: "#All")
         
     }
+    
+    @IBAction func grabMostLikedPosts(_ sender: Any) {
+        passDataToTopicView(dataIndexPath: nil, dataString: "#MostLiked")
+    }
+    
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
        
