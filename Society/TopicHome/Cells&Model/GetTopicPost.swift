@@ -30,7 +30,7 @@ class GetTopicPost {
         let obj = snapshot.value as! NSDictionary
        
         self.topic = obj["topic"] as? String
-        self.flagged = obj["flagged"] as? Bool
+        
         self.thePost = obj["thepost"] as? String
         self.liked = obj["liked"] as? Bool
         self.trash = obj["trash"] as? Bool
@@ -38,10 +38,14 @@ class GetTopicPost {
         self.trashCount =  obj["trashcount"] as? Int
         self.createdByUsername =  obj["createdbyusername"] as? String
         self.allowComments =  obj["allowcomments"] as? Bool
-        self.timeOfPost = (obj["timeofpost"] as? TimeInterval)!
+        self.timeOfPost = obj["timeofpost"] as? TimeInterval
         
         let c = obj["usersthatliked"] as? NSDictionary
         self.usersthatliked = c?[currentUserID as Any] as? String
+        
+        let flag = obj["whoflagged"] as? NSDictionary
+        let isFlagged = flag?[currentUserID!] as? Bool != true ? false : true
+        self.flagged = isFlagged
 
         }
     }

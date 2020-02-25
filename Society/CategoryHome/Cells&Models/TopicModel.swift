@@ -27,7 +27,7 @@ class TopicModel {
     func enteringIntoTopicCreatedDB() {
         
         let path = Resuable().removeHashTag(topic: topicLabel!)
-        firebaseRef.child("topics").child(path).setValue(["topiclabel": topicLabel!, "topicdescription": topicDescription!,"createdbyuser":Auth.auth().currentUser!.uid, "flagged":false])
+        firebaseRef.child("topics").child(path).setValue(["topiclabel": topicLabel!, "topicdescription": topicDescription!,"createdbyuser":Auth.auth().currentUser!.uid])
         viewController?.dismiss(animated: true)
         
     }

@@ -30,7 +30,62 @@ class MainPostViewController: UIViewController {
     }
     
     @objc func filterCaller() {
-        ReusableComponents().filteringOptions(viewController: self,tableView: tableViewMain)
+    
+            let alert = UIAlertController(title: "", message: "How would you like to filter?", preferredStyle: .actionSheet)
+            
+            let liked = UIAlertAction(title: "Most Liked", style: .default) { (UIAlertAction) in
+                self.getMostLiked()
+            }
+            
+            let trash = UIAlertAction(title: "Most Trash", style: .default) {
+                (UIAlertAction) in
+                self.getMostTrash()
+            }
+            
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+            
+            alert.addAction(liked)
+            alert.addAction(trash)
+            alert.addAction(cancel)
+            
+            present(alert, animated: true)
+        
+    }
+    
+    func getMostLiked() {
+         //this needs to be configured to make the highest liked count show first -> set/dictionary returns unordered
+        let passedObj = postPassed?.topicKey == nil ? postComment?.commentKey : postPassed?.topicKey
+        firebaseRef.child("comments").queryOrdered(byChild: "likedcount").queryStarting(atValue: 5).queryLimited(toLast: 50).observe(.value) { (snapshot) in
+            if snapshot.exists() {
+                if !self.comment.isEmpty {self.comment.removeAll()}
+                for obj in snapshot.children.allObjects {
+                    let snap = obj as? DataSnapshot
+                    let snapObject = snap?.value as! NSDictionary
+                    if snapObject["postyourrespondingtokey"] as? String == passedObj {
+                        self.comment.append(GetComment(snapshot: obj as! DataSnapshot))
+                        self.tableViewMain.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
+    func getMostTrash() {
+        //this needs to be configured to make the highest trash count show first -> set/dictionary returns unordered
+        let passedObj = postPassed?.topicKey == nil ? postComment?.commentKey : postPassed?.topicKey
+        firebaseRef.child("comments").queryOrdered(byChild: "trashcount").queryStarting(atValue: 5).queryLimited(toLast: 50).observe(.value) { (snapshot) in
+            if snapshot.exists() {
+                if !self.comment.isEmpty {self.comment.removeAll()}
+                for obj in snapshot.children.allObjects {
+                    let snap = obj as? DataSnapshot
+                    let snapObject = snap?.value as! NSDictionary
+                    if snapObject["postyourrespondingtokey"] as? String == passedObj {
+                        self.comment.append(GetComment(snapshot: obj as! DataSnapshot))
+                        self.tableViewMain.reloadData()
+                    }
+                }
+            }
+        }
     }
         
     fileprivate func getComments() {
@@ -111,7 +166,7 @@ class MainPostViewController: UIViewController {
     @objc func headerIsLiked() {
     
         if postComment?.commentKey != nil {
-            print("i am entering this block")
+            
             firebaseRef.child("comments").child(postComment!.commentKey!).observeSingleEvent(of: .value) { (snapshot) in
                 _ = Liked(snapshot: snapshot, key: self.postComment!.commentKey! , path: "comments")
                 self.getPassedFromDB()
@@ -147,6 +202,9 @@ class MainPostViewController: UIViewController {
         }
     }
     
+    @objc func flagging() {
+        
+    }
 }
 
 extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
@@ -174,13 +232,12 @@ extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
             cell.userLabel?.text = postComment?.createdByUsername == nil ? postPassed?.createdByUsername : postComment?.createdByUsername
             cell.postComment?.text = postComment?.theComment == nil ? postPassed?.thePost : postComment?.theComment
             
-            cell.replyBtn?.addTarget(self, action: #selector(replyFromMainHeader), for: .touchDown)
+            cell.replyBtn?.addTarget(self, action: #selector(self.replyFromMainHeader), for: .touchDown)
             cell.replyBtn?.isEnabled = (postComment?.theComment == nil ? postPassed!.allowComments : postComment!.allowComments)!
             
             cell.goodRating?.addTarget(self, action: #selector(headerIsLiked), for: .touchDown)
             cell.goodRating?.tintColor = postComment?.usersthatliked == nil ? postPassed?.usersthatliked == "liked" ? .red : .blue : postComment?.usersthatliked == "liked" ? .red : .blue
             
-        
             cell.badRating?.addTarget(self, action: #selector(headerIsTrash), for: .touchDown)
             cell.badRating?.tintColor = postComment?.usersthatliked == nil ? postPassed?.usersthatliked == "disliked" ? .red : .blue : postComment?.usersthatliked == "disliked" ? .red : .blue
             
@@ -209,6 +266,7 @@ extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
         comments.badRating.addTarget(self, action: #selector(thisIsTrash(sender:)), for: .touchDown)
         comments.badRating.tintColor = comment[indexPath.row].usersthatliked == "disliked" ? .red : .blue
         
+
         comments.selectionStyle = .none
         return comments
         
@@ -248,6 +306,7 @@ extension MainPostViewController:UITableViewDataSource,UITableViewDelegate {
            button.tag = section
            button.setTitle("Filter", for: .normal)
            button.backgroundColor = .white
+
            button.addTarget(self, action: #selector(filterCaller), for: .touchDown)
            button.titleLabel?.font = UIFont(name:"UICTFontTextStyleHeadline" , size: 17)
            button.setTitleColor(.orange, for: .normal)

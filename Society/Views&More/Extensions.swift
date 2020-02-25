@@ -67,32 +67,27 @@ extension UIViewController
 class ReusableComponents:UIViewController {
     
     public func filteringOptions(viewController:UIViewController, tableView:UITableView) {
-
+        
         let alert = UIAlertController(title: "", message: "How would you like to filter?", preferredStyle: .actionSheet)
-              
-        let liked = UIAlertAction(title: "Most likes", style: .default) { (UIAlertAction) in
-            print("This filtered by likes")
+        
+        let liked = UIAlertAction(title: "Most Liked", style: .default) { (UIAlertAction) in
+            print("This is th most Liked")
+            
             
         }
-        let ascending = UIAlertAction(title: "Ascending", style: .default) {
+        let trash = UIAlertAction(title: "Most Trash", style: .default) {
             (UIAlertAction) in
-             print("This post will be filtered by ascending order")
+            print("This the most trash post")
             
         }
         
-        let descending = UIAlertAction(title: "Descending", style: .default) { (UIAlertAction) in
-            print("This post will be filtered by descending order ")
-            tableView.separatorColor = .red
-//           tableView.reloadData()
-        }
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel)
-      
+        
         alert.addAction(liked)
-        alert.addAction(ascending)
-        alert.addAction(descending)
+        alert.addAction(trash)
         alert.addAction(cancel)
-    
+        
         viewController.present(alert,animated: true)
     }
 }

@@ -32,4 +32,5 @@ public class Resuable {
     func trimTheWhiteSpace(text:String) -> String {
         return text.trimmingCharacters(in: .whitespacesAndNewlines)
     }
+    
 }

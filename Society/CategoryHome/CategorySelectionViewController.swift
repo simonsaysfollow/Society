@@ -172,8 +172,19 @@ class CategorySelectionViewController: UIViewController, UIScrollViewDelegate, U
             self.showAllBtn.setTitle("All", for: .normal)
             self.collectionView.reloadData()
         }
-       
     }
+    
+    
+   @objc func selectedTheFlag(_ sender: UIButton) {
+        
+    let topic = Resuable().removeHashTag(topic: sender.accessibilityLabel!)
+
+    firebaseRef.child("topics").child(topic).observeSingleEvent(of: .value) { (snapshot) in
+        Flagged(snap: snapshot, path: "topics")
+    }
+        
+    }
+    
     
 }
 
@@ -198,6 +209,10 @@ extension CategorySelectionViewController: UICollectionViewDelegate, UICollectio
         cell.layer.masksToBounds = true
         cell.layer.borderWidth = 1
         cell.layer.borderColor = UIColor.orange.cgColor
+        
+        cell.topicFlag.accessibilityLabel = topicData[indexPath.row].topicLabel
+        cell.topicFlag.addTarget(self, action: #selector(selectedTheFlag(_:)), for: .touchDown)
+        cell.topicFlag.tintColor = topicData[indexPath.row].flagged == true ? .red : .blue
         
         return cell
     }

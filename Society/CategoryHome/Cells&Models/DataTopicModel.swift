@@ -18,6 +18,9 @@ class DataTopicModel {
     init?(snapshot:NSDictionary) {
         self.topicLabel = snapshot["topiclabel"] as? String
         self.topicDescription = snapshot["topicdescription"] as? String
-        self.flagged = snapshot["flagged"] as? Bool
+        let flag = snapshot["whoflagged"] as? NSDictionary
+        let isFlagged = flag?[currentUserID!] as?
+            Bool != true ? false : true
+        self.flagged = isFlagged
     }
 }
